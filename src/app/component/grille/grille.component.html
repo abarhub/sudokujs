@@ -1,0 +1,17 @@
+<div>
+  <table class="table-bordered">
+    <tr *ngFor="let item of [].constructor(9); let ligne = index">
+      <td *ngFor="let item2 of [].constructor(9); let colonne = index"
+          [ngClass]="{'visible': estVisible(ligne, colonne),
+          'non-visible': !estVisible(ligne, colonne),
+          'premier-bord': colonne % 3 === 0,
+          'dernier-bord': colonne === 8,
+          'premier-bord-haut': ligne % 3 === 0,
+          'dernier-bord-bas': ligne === 8}"
+          (click)="definiChiffre(ligne, colonne)"
+      >
+        {{case(ligne, colonne)}}
+      </td>
+    </tr>
+  </table>
+</div>

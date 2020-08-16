@@ -1,25 +1,15 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {JeuxService} from './service/jeux.service';
-import {GrilleComponent} from './component/grille/grille.component';
-import {Grille} from './models/grille';
-import {SelectionChiffre} from './models/selection-chiffre';
+import {Injectable} from '@angular/core';
+import {GrilleService} from './grille.service';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+@Injectable({
+  providedIn: 'root'
 })
-export class AppComponent implements AfterViewInit {
-  title = 'sudokujs';
-  derniereValeurSelectionnee: number = 0;
+export class JeuxService {
 
-  @ViewChild(GrilleComponent) grille: GrilleComponent;
-
-  constructor(private jeux: JeuxService) {
+  constructor(private grille: GrilleService) {
   }
 
-  ngAfterViewInit() {
-
+  public initialisation(): void {
     // cf : https://commons.wikimedia.org/wiki/File:Sdk_ex00s.gif?uselang=fr
     const tab: number[][] = [
       [2, 8, 3, 4, 1, 9, 7, 4, 6],
@@ -43,12 +33,18 @@ export class AppComponent implements AfterViewInit {
       [false, false, true, false, false, false, false, false, false],
       [false, true, false, false, false, false, false, false, true]
     ];
-    const grille: Grille = new Grille(tab, visible);
-    this.grille.init2(grille);
+    this.grille.initialisation(tab, visible);
   }
 
-  onSelection($event: SelectionChiffre): void {
-    this.derniereValeurSelectionnee = $event.valeur;
-    this.grille.setSelection(this.derniereValeurSelectionnee);
+  public getValue(ligne: number, colonne: number): number {
+    if (this.grille.estInitialise()) {
+      return this.grille.getValue(ligne, colonne);
+    } else {
+      return 0;
+    }
+  }
+
+  public isVisible(ligne: number, colonne: number): boolean {
+    return this.grille.isVisible(ligne, colonne);
   }
 }

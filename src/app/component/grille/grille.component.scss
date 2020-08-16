@@ -1,0 +1,38 @@
+
+$taille-case: 5em;
+
+$taille-fonte: 1.2em;
+
+td {
+  width: $taille-case;
+  height: $taille-case;
+  text-align: center;
+  vertical-align: middle;
+  $taille-fonte: $taille-fonte;
+  /*border-left-style: double;*/
+  /*border: 4px double blue;*/
+}
+
+.visible {
+  background-color: #ccffff;
+}
+
+.non-visible {
+  background-color: #ffffcc;
+}
+
+.premier-bord {
+  border-left-width: 8px;
+}
+
+.dernier-bord {
+  border-right-width: 8px;
+}
+
+.premier-bord-haut {
+  border-top-width: 8px;
+}
+
+.dernier-bord-bas {
+  border-bottom-width: 8px;
+}
