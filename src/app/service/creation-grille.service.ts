@@ -48,6 +48,8 @@ export class CreationGrilleService {
   private calculCase(tab: number[][]): void {
 
     const listePositions: [number, number][] = this.listePositions();
+    const valeursPossibles: Map<number, number[]> = new Map<number, number[]>();
+    const valeursPossiblesSelectionnee: Map<number, number> = new Map<number, number>();
 
     for (let position = 0; position < listePositions.length; position++) {
       const val: [number, number] = listePositions[position];
@@ -57,7 +59,16 @@ export class CreationGrilleService {
       let retourArriere = false;
       console.log('position', position, ligne2, colonne2);
       console.log('tab', tab, this.afficheTab(tab));
-      const valeurs = this.calculValeursPossibles(tab, ligne2, colonne2);
+      let valeurs: number[];
+      let recalcul = false;
+      if (valeursPossibles.has(position)) {
+        valeurs = valeursPossibles.get(position);
+      } else {
+        valeurs = this.calculValeursPossibles(tab, ligne2, colonne2);
+        valeurs = ArrayUtils.shuttle(valeurs);
+        recalcul = true;
+        valeursPossibles.set(position, valeurs);
+      }
       console.log('valeurs', valeurs);
       if (valeurs.length === 0) {
         if (position >= listePositions.length) {
@@ -72,27 +83,46 @@ export class CreationGrilleService {
         if (valeurActuelle !== 0 && valeurActuelle === valeurs[0]) {
           retourArriere = true;
         } else {
+          valeursPossiblesSelectionnee.set(position, 0);
           tab[ligne2][colonne2] = valeurs[0];
         }
       } else {
-        if (valeurActuelle === 0) {
-          tab[ligne2][colonne2] = valeurs[0];
+        let valeurPosition;
+        if (valeursPossiblesSelectionnee.has(position)) {
+          valeurPosition = valeursPossiblesSelectionnee.get(position) + 1;
         } else {
-          let trouve = false;
-          for (let i = 0; i < valeurs.length; i++) {
-            const val2 = valeurs[i];
-            if (val2 > valeurActuelle) {
-              tab[ligne2][colonne2] = val2;
-              trouve = true;
-              break;
-            }
-          }
-          if (!trouve) {
-            retourArriere = true;
-          }
+          valeurPosition = 0;
         }
+        if (valeurPosition < valeurs.length) {
+          valeursPossiblesSelectionnee.set(position, valeurPosition);
+          const val2 = valeursPossibles.get(position)[valeurPosition];
+          tab[ligne2][colonne2] = val2;
+        } else {
+          // on a parcouru toutes les valeurs
+          retourArriere = true;
+        }
+        // if (valeurActuelle === 0) {
+        //   valeursPossiblesSelectionnee.set(position, 0);
+        //   tab[ligne2][colonne2] = valeurs[0];
+        // } else {
+        //   let trouve = false;
+        //   for (let i = 0; i < valeurs.length; i++) {
+        //     const val2 = valeurs[i];
+        //     if (val2 > valeurActuelle) {
+        //       valeursPossiblesSelectionnee.set(position, i);
+        //       tab[ligne2][colonne2] = val2;
+        //       trouve = true;
+        //       break;
+        //     }
+        //   }
+        //   if (!trouve) {
+        //     retourArriere = true;
+        //   }
+        // }
       }
       if (retourArriere) {
+        valeursPossibles.delete(position);
+        valeursPossiblesSelectionnee.delete(position);
         tab[ligne2][colonne2] = 0;
         position -= 2;
       }
