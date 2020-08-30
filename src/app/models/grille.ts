@@ -1,18 +1,24 @@
+import {ArrayUtils} from '../utils/array.utils';
+
 export class Grille {
 
+  private solution: number[][];
   private valeurs: number[][];
   private visible: boolean[][];
+  private modifiable: boolean[][];
 
-  constructor(valeurs: number[][], visible: boolean[][]) {
-    this.valeurs = valeurs;
-    this.visible = visible;
+  constructor(solution: number[][], visible: boolean[][], modifiable: boolean[][]) {
+    this.solution = ArrayUtils.cloneArrayNumber(solution);
+    this.visible = ArrayUtils.cloneArrayBoolean(visible);
+    this.modifiable = ArrayUtils.cloneArrayBoolean(modifiable);
+    this.valeurs = ArrayUtils.cloneArrayNumber(this.solution);
   }
 
   getValeur(ligne: number, colonne: number): number {
     this.verifieLigne(ligne);
     this.verifieColonne(colonne);
     this.verifieCase(this.valeurs, ligne, colonne);
-    if (this.valeurs === null || this.valeurs === undefined) {
+    if (this.isUndefined(this.valeurs)) {
       return 0;
     } else {
       return this.valeurs[ligne][colonne];
@@ -23,7 +29,7 @@ export class Grille {
     this.verifieLigne(ligne);
     this.verifieColonne(colonne);
     this.verifieCase(this.valeurs, ligne, colonne);
-    if (this.visible === null || this.visible === undefined) {
+    if (this.isUndefined(this.visible)) {
       return false;
     } else {
       return this.visible[ligne][colonne];
@@ -42,9 +48,23 @@ export class Grille {
     this.verifieColonne(colonne);
     this.verifieCase(this.valeurs, ligne, colonne);
     this.verifieValeur(valeur);
-    this.valeurs[ligne][colonne] = valeur;
+    if (!this.estModifiable(ligne, colonne)) {
+      throw new Error('Impossible de mofifier la case ' + ligne + '/' + colonne + ' !');
+    } else {
+      this.valeurs[ligne][colonne] = valeur;
+    }
   }
 
+  estModifiable(ligne: number, colonne: number): boolean {
+    this.verifieLigne(ligne);
+    this.verifieColonne(colonne);
+    this.verifieCase(this.valeurs, ligne, colonne);
+    if (this.isUndefined(this.modifiable)) {
+      return false;
+    } else {
+      return this.modifiable[ligne][colonne];
+    }
+  }
 
   private verifieLigne(ligne: number): void {
     if (ligne < 0 || ligne > 8) {
@@ -83,6 +103,8 @@ export class Grille {
 
   public estInitialise(): boolean {
     return !this.isUndefined(this.valeurs) &&
-      !this.isUndefined(this.visible);
+      !this.isUndefined(this.visible) &&
+      !this.isUndefined(this.modifiable);
   }
+
 }

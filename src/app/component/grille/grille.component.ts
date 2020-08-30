@@ -17,11 +17,16 @@ export class GrilleComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  case(ligne: number, colonne: number): number {
+  case(ligne: number, colonne: number): string {
     if (this.grille && this.grille.estInitialise()) {
-      return this.grille.getValeur(ligne, colonne);
+      if (this.estVisible(ligne, colonne)) {
+        const valeur = this.grille.getValeur(ligne, colonne);
+        return '' + valeur;
+      } else {
+        return '';
+      }
     } else {
-      return 0;
+      return '';
     }
   }
 
@@ -37,13 +42,26 @@ export class GrilleComponent implements OnInit {
     }
   }
 
+  estModifiable(ligne: number, colonne: number): boolean {
+    if (this.grille && this.grille.estInitialise()) {
+      return this.grille.estModifiable(ligne, colonne);
+    } else {
+      return false;
+    }
+  }
+
   setSelection(derniereValeurSelectionnee: number | null): void {
     this.valeurSelectionnee = derniereValeurSelectionnee;
   }
 
   definiChiffre(ligne: number, colonne: number): void {
-    if (this.valeurSelectionnee && !this.estVisible(ligne, colonne)) {
-      this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
+    if (this.valeurSelectionnee && this.estModifiable(ligne, colonne)) {
+      if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
+        this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
+        this.grille.setVisible(ligne, colonne, true);
+      } else if (this.valeurSelectionnee === -1) {
+        this.grille.setVisible(ligne, colonne, false);
+      }
     }
   }
 }

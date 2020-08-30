@@ -3,6 +3,8 @@ import {JeuxService} from './service/jeux.service';
 import {GrilleComponent} from './component/grille/grille.component';
 import {Grille} from './models/grille';
 import {SelectionChiffre} from './models/selection-chiffre';
+import {SolveBacktrack} from './service/solve-backtrack.service';
+import {CreationGrilleService} from './service/creation-grille.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,7 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild(GrilleComponent) grille: GrilleComponent;
 
-  constructor(private jeux: JeuxService) {
+  constructor(private jeux: JeuxService, private solveBacktrack: SolveBacktrack, private creationGrilleService: CreationGrilleService) {
   }
 
   ngAfterViewInit() {
@@ -43,12 +45,42 @@ export class AppComponent implements AfterViewInit {
       [false, false, true, false, false, false, false, false, false],
       [false, true, false, false, false, false, false, false, true]
     ];
-    const grille: Grille = new Grille(tab, visible);
+
+    const modifiable = visible.map(x => x.map(y => !y));
+    const grille: Grille = new Grille(tab, visible, modifiable);
     this.grille.init2(grille);
+
+    this.resolve(tab, visible);
   }
 
   onSelection($event: SelectionChiffre): void {
     this.derniereValeurSelectionnee = $event.valeur;
-    this.grille.setSelection(this.derniereValeurSelectionnee);
+    if ((this.derniereValeurSelectionnee >= 1 && this.derniereValeurSelectionnee <= 9)
+      || this.derniereValeurSelectionnee === -1) {
+      this.grille.setSelection(this.derniereValeurSelectionnee);
+    } else {
+      this.grille.setSelection(null);
+    }
+  }
+
+  creationGrille(): void {
+    let res = this.creationGrilleService.nouvelleGrille();
+    console.log('res', res);
+    this.grille.init2(res);
+  }
+
+  private resolve(tab: number[][], visible: boolean[][]): void {
+    let tab2: number[][];
+    tab2 = tab.map(x => x.map(y => y));
+    for (let i = 0; i < tab2.length; i++) {
+      for (let j = 0; j < tab2[i].length; j++) {
+        if (!visible[i][j]) {
+          tab2[i][j] = 0;
+        }
+      }
+    }
+    console.log('tab2:', tab2);
+    let res = this.solveBacktrack.solve(tab2);
+    console.log('res', res, tab2);
   }
 }

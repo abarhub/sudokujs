@@ -8,6 +8,8 @@ import {SelectionChiffre} from '../../models/selection-chiffre';
 })
 export class SelectionChiffresComponent implements OnInit {
 
+  chiffreSelectionnee: number | null = null;
+
   @Output() selection = new EventEmitter<SelectionChiffre>();
 
   constructor() {
@@ -17,8 +19,20 @@ export class SelectionChiffresComponent implements OnInit {
   }
 
   selectionChiffre(chiffre: number): void {
-    const selection = new SelectionChiffre();
-    selection.valeur = chiffre;
-    this.selection.emit(selection);
+    if (this.chiffreSelectionnee !== chiffre) {
+      const selection = new SelectionChiffre();
+      selection.valeur = chiffre;
+      this.chiffreSelectionnee = chiffre;
+      this.selection.emit(selection);
+    } else {
+      this.chiffreSelectionnee = null;
+      const selection = new SelectionChiffre();
+      selection.valeur = 0;
+      this.selection.emit(selection);
+    }
+  }
+
+  estSelectionne(chiffre: number): boolean {
+    return this.chiffreSelectionnee && this.chiffreSelectionnee === chiffre;
   }
 }
