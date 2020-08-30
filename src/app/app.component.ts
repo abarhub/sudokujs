@@ -5,6 +5,7 @@ import {Grille} from './models/grille';
 import {SelectionChiffre} from './models/selection-chiffre';
 import {SolveBacktrack} from './service/solve-backtrack.service';
 import {CreationGrilleService} from './service/creation-grille.service';
+import {NiveauDifficulteEnum} from './models/niveau-difficulte.enum';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,8 @@ import {CreationGrilleService} from './service/creation-grille.service';
 export class AppComponent implements AfterViewInit {
   title = 'sudokujs';
   derniereValeurSelectionnee: number = 0;
+  niveau: string = 'facile';
+  nombreCasesVides= 0;
 
   @ViewChild(GrilleComponent) grille: GrilleComponent;
 
@@ -49,6 +52,7 @@ export class AppComponent implements AfterViewInit {
     const modifiable = visible.map(x => x.map(y => !y));
     const grille: Grille = new Grille(tab, visible, modifiable);
     this.grille.init2(grille);
+    this.nombreCasesVides = grille.nombreCasesVides();
 
     this.resolve(tab, visible);
   }
@@ -64,9 +68,21 @@ export class AppComponent implements AfterViewInit {
   }
 
   creationGrille(): void {
-    let res = this.creationGrilleService.nouvelleGrille();
+    let niveauDifficulte: NiveauDifficulteEnum;
+    if (this.niveau === 'facile') {
+      niveauDifficulte = NiveauDifficulteEnum.FACILE;
+    } else if (this.niveau === 'moyen') {
+      niveauDifficulte = NiveauDifficulteEnum.MOYEN;
+    } else if (this.niveau === 'difficile') {
+      niveauDifficulte = NiveauDifficulteEnum.DIFFICILE;
+    } else {
+      niveauDifficulte = NiveauDifficulteEnum.FACILE;
+    }
+    console.log("difficulte", this.niveau, niveauDifficulte);
+    const res = this.creationGrilleService.nouvelleGrille(niveauDifficulte);
     console.log('res', res);
     this.grille.init2(res);
+    this.nombreCasesVides = res.nombreCasesVides();
   }
 
   private resolve(tab: number[][], visible: boolean[][]): void {
@@ -80,7 +96,7 @@ export class AppComponent implements AfterViewInit {
       }
     }
     console.log('tab2:', tab2);
-    let res = this.solveBacktrack.solve(tab2);
+    const res = this.solveBacktrack.solve(tab2);
     console.log('res', res, tab2);
   }
 }

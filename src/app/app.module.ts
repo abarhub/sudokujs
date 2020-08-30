@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GrilleComponent } from './component/grille/grille.component';
 import { SelectionChiffresComponent } from './component/selection-chiffres/selection-chiffres.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,11 +14,12 @@ import { SelectionChiffresComponent } from './component/selection-chiffres/selec
     GrilleComponent,
     SelectionChiffresComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

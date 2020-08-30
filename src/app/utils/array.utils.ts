@@ -2,6 +2,10 @@ import {RandomUtils} from './random.utils';
 
 export class ArrayUtils {
 
+  /**
+   * clone un tableau d'entier
+   * @param tab le tableau a cloner
+   */
   public static cloneArrayNumber(tab: number[][]): number[][] {
     const resultat: number[][] = [];
     if (tab) {
@@ -15,6 +19,10 @@ export class ArrayUtils {
     return resultat;
   }
 
+  /**
+   * clone un tableau de booleen
+   * @param tab le tableau a cloner
+   */
   public static cloneArrayBoolean(tab: boolean[][]): boolean[][] {
     const resultat: boolean[][] = [];
     if (tab) {

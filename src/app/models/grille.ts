@@ -107,4 +107,17 @@ export class Grille {
       !this.isUndefined(this.modifiable);
   }
 
+  public nombreCasesVides(): number {
+    let compteur = 0;
+    console.log("nombreCasesVides", this.visible);
+    for (const item of this.visible) {
+      for (const item2 of item) {
+        if (!item2) {
+          compteur++;
+        }
+      }
+    }
+    console.log("nombreCasesVides compteur", compteur);
+    return compteur;
+  }
 }

@@ -8,11 +8,17 @@
   <div class="row">
     <div class="col-12">
       Selection: {{derniereValeurSelectionnee}}
+      Nombre de cases vide: {{nombreCasesVides}}
     </div>
   </div>
   <div class="row">
     <div class="col-12">
       <button (click)="creationGrille()">Nouvelle grille</button>
+      <select [(ngModel)]="niveau">
+        <option [ngValue]="'facile'">Facile</option>
+        <option [ngValue]="'moyen'">Moyen</option>
+        <option [ngValue]="'difficile'">Difficile</option>
+      </select>
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Grille} from '../models/grille';
 import {ArrayUtils} from '../utils/array.utils';
+import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,10 @@ export class CreationGrilleService {
 
   SUBSECTION_SIZE = 3;
 
-  nouvelleGrille(): Grille {
+  nouvelleGrille(niveauDificulte: NiveauDifficulteEnum): Grille {
 
     // création de la grille vide
-    let tab: number[][] = [];
+    const tab: number[][] = [];
     for (let ligne = 0; ligne < 9; ligne++) {
       tab[ligne] = [];
       for (let colonne = 0; colonne < 9; colonne++) {
@@ -28,8 +29,21 @@ export class CreationGrilleService {
     console.log('tab=', tab);
 
     // suppression des cases
+    let nombreCase: number;
+    switch (niveauDificulte) {
+      case NiveauDifficulteEnum.FACILE:
+        nombreCase = 40;
+        break;
+      case NiveauDifficulteEnum.MOYEN:
+        nombreCase = 46;
+        break;
+      case NiveauDifficulteEnum.DIFFICILE:
+        nombreCase = 50;
+        break;
+    }
+    console.log("nomCaseVide", nombreCase);
     const caseSupprimee = ArrayUtils.cloneArrayNumber(tab);
-    this.suppressionCases(caseSupprimee);
+    this.suppressionCases(caseSupprimee, nombreCase);
 
     const visible: boolean[][] = [];
     for (let i = 0; i < caseSupprimee.length; i++) {
@@ -101,24 +115,6 @@ export class CreationGrilleService {
           // on a parcouru toutes les valeurs
           retourArriere = true;
         }
-        // if (valeurActuelle === 0) {
-        //   valeursPossiblesSelectionnee.set(position, 0);
-        //   tab[ligne2][colonne2] = valeurs[0];
-        // } else {
-        //   let trouve = false;
-        //   for (let i = 0; i < valeurs.length; i++) {
-        //     const val2 = valeurs[i];
-        //     if (val2 > valeurActuelle) {
-        //       valeursPossiblesSelectionnee.set(position, i);
-        //       tab[ligne2][colonne2] = val2;
-        //       trouve = true;
-        //       break;
-        //     }
-        //   }
-        //   if (!trouve) {
-        //     retourArriere = true;
-        //   }
-        // }
       }
       if (retourArriere) {
         valeursPossibles.delete(position);
@@ -205,9 +201,9 @@ export class CreationGrilleService {
     return s;
   }
 
-  private suppressionCases(tab: number[][]): void {
+  private suppressionCases(tab: number[][], nombreCaseSupprimee: number): void {
     const listePositions: [number, number][] = this.listePositions();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < nombreCaseSupprimee; i++) {
       const min = 0;
       const max = listePositions.length - 1;
       const caseASupprimer: number = Math.floor(Math.random() * (max - min + 1)) + min;
