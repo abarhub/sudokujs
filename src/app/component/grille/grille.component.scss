@@ -1,4 +1,3 @@
-
 $taille-case: 5em;
 
 $taille-fonte: 1.2em;
@@ -35,4 +34,17 @@ td {
 
 .dernier-bord-bas {
   border-bottom-width: 8px;
+}
+
+.case-selectionnee {
+  background-color: #f5f565;
+}
+
+
+.ligne-colonne-selectionnee-modifiable {
+  background-color: #fafa87;
+}
+
+.ligne-colonne-selectionnee-non-modifiable {
+  background-color: #c9fa44;
 }

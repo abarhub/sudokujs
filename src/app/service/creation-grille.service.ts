@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Grille} from '../models/grille';
 import {ArrayUtils} from '../utils/array.utils';
 import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
+import {RandomUtils} from '../utils/random.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -32,13 +33,16 @@ export class CreationGrilleService {
     let nombreCase: number;
     switch (niveauDificulte) {
       case NiveauDifficulteEnum.FACILE:
-        nombreCase = 40;
+        // 40 à 45
+        nombreCase = RandomUtils.getRandomInt(40, 45);
         break;
       case NiveauDifficulteEnum.MOYEN:
-        nombreCase = 46;
+        // 46 à 49
+        nombreCase = RandomUtils.getRandomInt(46, 49);
         break;
       case NiveauDifficulteEnum.DIFFICILE:
-        nombreCase = 50;
+        // 50 à 53 (Plus de 54 à 58)
+        nombreCase = RandomUtils.getRandomInt(50, 53);
         break;
     }
     console.log("nomCaseVide", nombreCase);

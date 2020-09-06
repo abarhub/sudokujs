@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Grille} from '../../models/grille';
+import {GrilleUtils} from '../../utils/grille.utils';
+import {LogUtils} from '../../utils/log.utils';
 
 @Component({
   selector: 'app-grille',
@@ -10,6 +12,8 @@ export class GrilleComponent implements OnInit {
 
   grille: Grille;
   valeurSelectionnee: number | null = null;
+  ligneSelectionnee: number | null = null;
+  colonneSelectionnee: number | null = null;
 
   constructor() {
   }
@@ -52,16 +56,54 @@ export class GrilleComponent implements OnInit {
 
   setSelection(derniereValeurSelectionnee: number | null): void {
     this.valeurSelectionnee = derniereValeurSelectionnee;
+    if(this.ligneSelectionnee !== null && this.colonneSelectionnee !== null){
+      this.definiChiffre(this.ligneSelectionnee, this.colonneSelectionnee);
+      this.ligneSelectionnee=null;
+      this.colonneSelectionnee=null;
+    }
   }
 
   definiChiffre(ligne: number, colonne: number): void {
-    if (this.valeurSelectionnee && this.estModifiable(ligne, colonne)) {
-      if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
-        this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
-        this.grille.setVisible(ligne, colonne, true);
-      } else if (this.valeurSelectionnee === -1) {
-        this.grille.setVisible(ligne, colonne, false);
+    if (this.valeurSelectionnee) {
+      if (this.estModifiable(ligne, colonne)) {
+
+        if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
+          this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
+          this.grille.setVisible(ligne, colonne, true);
+        } else if (this.valeurSelectionnee === -1) {
+          this.grille.setVisible(ligne, colonne, false);
+        }
+      }
+    } else {
+      if (this.estModifiable(ligne, colonne)) {
+        if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null &&
+          this.ligneSelectionnee === ligne && this.colonneSelectionnee === colonne) {
+          this.ligneSelectionnee = null;
+          this.colonneSelectionnee = null;
+        } else if (this.ligneSelectionnee !== null || this.colonneSelectionnee !== null) {
+          this.ligneSelectionnee = ligne;
+          this.colonneSelectionnee = colonne;
+        } else if (this.ligneSelectionnee !== ligne || this.colonneSelectionnee !== colonne) {
+          this.ligneSelectionnee = ligne;
+          this.colonneSelectionnee = colonne;
+        }
       }
     }
   }
+
+  isCaseSelectionnee(ligne: number, colonne: number): boolean {
+    return this.ligneSelectionnee && this.colonneSelectionnee && this.ligneSelectionnee === ligne && this.colonneSelectionnee === colonne;
+  }
+
+  isLigneColonneSelectionnee(ligne: number, colonne: number): boolean {
+    if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null) {
+      if (this.ligneSelectionnee === ligne || this.colonneSelectionnee === colonne) {
+        return true;
+      } else if (GrilleUtils.memeCarre(ligne, colonne, this.ligneSelectionnee, this.colonneSelectionnee)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

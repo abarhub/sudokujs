@@ -26,7 +26,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
 
     // cf : https://commons.wikimedia.org/wiki/File:Sdk_ex00s.gif?uselang=fr
-    const tab: number[][] = [
+    /*const tab: number[][] = [
       [2, 8, 3, 4, 1, 9, 7, 4, 6],
       [9, 6, 4, 8, 7, 3, 5, 2, 1],
       [5, 1, 7, 6, 2, 4, 9, 3, 8],
@@ -50,11 +50,14 @@ export class AppComponent implements AfterViewInit {
     ];
 
     const modifiable = visible.map(x => x.map(y => !y));
-    const grille: Grille = new Grille(tab, visible, modifiable);
+    const grille: Grille = new Grille(tab, visible, modifiable);*/
+    const niveauDifficulte = NiveauDifficulteEnum.FACILE;
+    const grille = this.creationGrilleService.nouvelleGrille(niveauDifficulte);
+
     this.grille.init2(grille);
     this.nombreCasesVides = grille.nombreCasesVides();
 
-    this.resolve(tab, visible);
+    // this.resolve(tab, visible);
   }
 
   onSelection($event: SelectionChiffre): void {
