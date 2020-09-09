@@ -1,24 +1,24 @@
-<div class="container">
-  <div class="row">
-    <app-grille></app-grille>
-  </div>
-  <div class="row">
-    <app-selection-chiffres (selection)="onSelection($event)"></app-selection-chiffres>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      Selection: {{derniereValeurSelectionnee}}
-      Nombre de cases vide: {{nombreCasesVides}}
+<div class="d-flex justify-content-center">
+  <div class="d-flex flex-column">
+    <div class="p-2">
+      <app-grille></app-grille>
+    </div>
+    <div class="p-2">
+      <app-selection-chiffres (selection)="onSelection($event)"></app-selection-chiffres>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12">
+  <div class="d-flex flex-column">
+    <div class="p-2">
       <button (click)="creationGrille()">Nouvelle grille</button>
       <select [(ngModel)]="niveau">
         <option [ngValue]="'facile'">Facile</option>
         <option [ngValue]="'moyen'">Moyen</option>
         <option [ngValue]="'difficile'">Difficile</option>
       </select>
+    </div>
+    <div class="p-2">
+      Selection: {{derniereValeurSelectionnee}}<br/>
+      Nombre de cases vide: {{nombreCasesVides}}
     </div>
   </div>
 </div>

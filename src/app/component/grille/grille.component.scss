@@ -1,13 +1,13 @@
-$taille-case: 5em;
+$taille-case: 70px;
 
-$taille-fonte: 1.2em;
+$taille-fonte: 2em;
 
 td {
   width: $taille-case;
   height: $taille-case;
   text-align: center;
   vertical-align: middle;
-  $taille-fonte: $taille-fonte;
+  font-size: $taille-fonte;
   /*border-left-style: double;*/
   /*border: 4px double blue;*/
 }
