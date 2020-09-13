@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Grille} from '../../models/grille';
 import {GrilleUtils} from '../../utils/grille.utils';
 import {LogUtils} from '../../utils/log.utils';
+import {JeuxService} from '../../service/jeux.service';
 
 @Component({
   selector: 'app-grille',
@@ -14,8 +15,9 @@ export class GrilleComponent implements OnInit {
   valeurSelectionnee: number | null = null;
   ligneSelectionnee: number | null = null;
   colonneSelectionnee: number | null = null;
+  valeurAfficher: number | null = null;
 
-  constructor() {
+  constructor(private jeuxService: JeuxService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class GrilleComponent implements OnInit {
 
   init2(grille: Grille): void {
     this.grille = grille;
+    this.jeuxService.modificationGrille$.next(this.grille.clone());
   }
 
   estVisible(ligne: number, colonne: number): boolean {
@@ -56,10 +59,10 @@ export class GrilleComponent implements OnInit {
 
   setSelection(derniereValeurSelectionnee: number | null): void {
     this.valeurSelectionnee = derniereValeurSelectionnee;
-    if(this.ligneSelectionnee !== null && this.colonneSelectionnee !== null){
+    if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null) {
       this.definiChiffre(this.ligneSelectionnee, this.colonneSelectionnee);
-      this.ligneSelectionnee=null;
-      this.colonneSelectionnee=null;
+      this.ligneSelectionnee = null;
+      this.colonneSelectionnee = null;
     }
   }
 
@@ -70,22 +73,24 @@ export class GrilleComponent implements OnInit {
         if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
           this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
           this.grille.setVisible(ligne, colonne, true);
+          this.jeuxService.modificationGrille$.next(this.grille.clone());
         } else if (this.valeurSelectionnee === -1) {
           this.grille.setVisible(ligne, colonne, false);
+          this.jeuxService.modificationGrille$.next(this.grille.clone());
         }
       }
     } else {
-      if (this.estModifiable(ligne, colonne)) {
-        if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null &&
-          this.ligneSelectionnee === ligne && this.colonneSelectionnee === colonne) {
-          this.ligneSelectionnee = null;
-          this.colonneSelectionnee = null;
-        } else if (this.ligneSelectionnee !== null || this.colonneSelectionnee !== null) {
-          this.ligneSelectionnee = ligne;
-          this.colonneSelectionnee = colonne;
-        } else if (this.ligneSelectionnee !== ligne || this.colonneSelectionnee !== colonne) {
-          this.ligneSelectionnee = ligne;
-          this.colonneSelectionnee = colonne;
+      if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null &&
+        this.ligneSelectionnee === ligne && this.colonneSelectionnee === colonne) {
+        this.ligneSelectionnee = null;
+        this.colonneSelectionnee = null;
+        this.valeurAfficher = null;
+      } else if ((this.ligneSelectionnee !== null || this.colonneSelectionnee !== null) ||
+        (this.ligneSelectionnee !== ligne || this.colonneSelectionnee !== colonne)) {
+        this.ligneSelectionnee = ligne;
+        this.colonneSelectionnee = colonne;
+        if (this.grille.estVisible(ligne, colonne)) {
+          this.valeurAfficher = this.grille.getValeur(ligne, colonne);
         }
       }
     }
@@ -104,6 +109,15 @@ export class GrilleComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  isValeurAfficher(ligne: number, colonne: number): boolean {
+    if (this.valeurAfficher != null && this.grille.estVisible(ligne, colonne)) {
+      return this.grille.getValeur(ligne, colonne) === this.valeurAfficher;
+    } else {
+      return false;
+    }
+
   }
 
 }

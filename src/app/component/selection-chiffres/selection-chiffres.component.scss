@@ -1,9 +1,12 @@
 
 .bouton-chiffre {
   background-color: aqua;
-  padding: 18px;
+  padding: 10px;
   margin: 5px;
-  font-size: 2em;
+}
+
+.valeur {
+  font-size: 2.5em;
 }
 
 .bord {
@@ -12,4 +15,8 @@
 
 .selectionne {
   background-color: aquamarine;
+}
+
+.nb-restant {
+  font-size: small;
 }

@@ -1,10 +1,14 @@
 import {Injectable} from '@angular/core';
 import {GrilleService} from './grille.service';
+import {Subject} from 'rxjs';
+import {Grille} from '../models/grille';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JeuxService {
+
+  modificationGrille$: Subject<Grille> = new Subject<Grille>();
 
   constructor(private grille: GrilleService) {
   }

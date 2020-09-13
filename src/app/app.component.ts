@@ -16,48 +16,19 @@ export class AppComponent implements AfterViewInit {
   title = 'sudokujs';
   derniereValeurSelectionnee: number = 0;
   niveau: string = 'facile';
-  nombreCasesVides= 0;
+  nombreCasesVides = 0;
 
   @ViewChild(GrilleComponent) grille: GrilleComponent;
 
   constructor(private jeux: JeuxService, private solveBacktrack: SolveBacktrack, private creationGrilleService: CreationGrilleService) {
   }
 
-  ngAfterViewInit() {
-
-    // cf : https://commons.wikimedia.org/wiki/File:Sdk_ex00s.gif?uselang=fr
-    /*const tab: number[][] = [
-      [2, 8, 3, 4, 1, 9, 7, 4, 6],
-      [9, 6, 4, 8, 7, 3, 5, 2, 1],
-      [5, 1, 7, 6, 2, 4, 9, 3, 8],
-      [1, 5, 6, 7, 4, 2, 3, 8, 9],
-      [4, 2, 9, 3, 8, 6, 1, 7, 5],
-      [3, 7, 8, 1, 9, 5, 2, 6, 4],
-      [8, 9, 5, 4, 3, 7, 6, 1, 2],
-      [7, 4, 2, 9, 6, 1, 8, 5, 3],
-      [6, 3, 1, 2, 5, 8, 4, 9, 7]
-    ];
-    const visible: boolean[][] = [
-      [true, false, false, false, false, false, false, true, false],
-      [false, false, false, false, false, false, true, false, false],
-      [false, true, false, true, false, true, false, true, true],
-      [true, false, false, true, true, false, false, true, true],
-      [false, false, true, false, true, false, true, false, false],
-      [true, true, false, false, true, true, false, false, true],
-      [true, true, false, true, false, true, false, true, false],
-      [false, false, true, false, false, false, false, false, false],
-      [false, true, false, false, false, false, false, false, true]
-    ];
-
-    const modifiable = visible.map(x => x.map(y => !y));
-    const grille: Grille = new Grille(tab, visible, modifiable);*/
+  ngAfterViewInit(): void {
     const niveauDifficulte = NiveauDifficulteEnum.FACILE;
     const grille = this.creationGrilleService.nouvelleGrille(niveauDifficulte);
 
     this.grille.init2(grille);
     this.nombreCasesVides = grille.nombreCasesVides();
-
-    // this.resolve(tab, visible);
   }
 
   onSelection($event: SelectionChiffre): void {
@@ -81,7 +52,7 @@ export class AppComponent implements AfterViewInit {
     } else {
       niveauDifficulte = NiveauDifficulteEnum.FACILE;
     }
-    console.log("difficulte", this.niveau, niveauDifficulte);
+    console.log('difficulte', this.niveau, niveauDifficulte);
     const res = this.creationGrilleService.nouvelleGrille(niveauDifficulte);
     console.log('res', res);
     this.grille.init2(res);
@@ -101,5 +72,21 @@ export class AppComponent implements AfterViewInit {
     console.log('tab2:', tab2);
     const res = this.solveBacktrack.solve(tab2);
     console.log('res', res, tab2);
+  }
+
+  nombreCaseVide(): number {
+    if (this.grille && this.grille?.grille) {
+      return this.grille.grille.nombreCasesVides();
+    } else {
+      return 0;
+    }
+  }
+
+  nombreCaseEnErreur(): number {
+    if (this.grille && this.grille?.grille) {
+      return this.grille.grille.nombreCasesEnErreur();
+    } else {
+      return 0;
+    }
   }
 }

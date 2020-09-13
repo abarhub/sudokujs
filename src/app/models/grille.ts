@@ -7,11 +7,15 @@ export class Grille {
   private visible: boolean[][];
   private modifiable: boolean[][];
 
-  constructor(solution: number[][], visible: boolean[][], modifiable: boolean[][]) {
+  constructor(solution: number[][], visible: boolean[][], modifiable: boolean[][], valeur?: number[][]) {
     this.solution = ArrayUtils.cloneArrayNumber(solution);
     this.visible = ArrayUtils.cloneArrayBoolean(visible);
     this.modifiable = ArrayUtils.cloneArrayBoolean(modifiable);
-    this.valeurs = ArrayUtils.cloneArrayNumber(this.solution);
+    if (valeur) {
+      this.valeurs = ArrayUtils.cloneArrayNumber(valeur);
+    } else {
+      this.valeurs = ArrayUtils.cloneArrayNumber(this.solution);
+    }
   }
 
   getValeur(ligne: number, colonne: number): number {
@@ -109,7 +113,7 @@ export class Grille {
 
   public nombreCasesVides(): number {
     let compteur = 0;
-    console.log("nombreCasesVides", this.visible);
+    console.log('nombreCasesVides', this.visible);
     for (const item of this.visible) {
       for (const item2 of item) {
         if (!item2) {
@@ -117,7 +121,29 @@ export class Grille {
         }
       }
     }
-    console.log("nombreCasesVides compteur", compteur);
+    console.log('nombreCasesVides compteur', compteur);
     return compteur;
+  }
+
+  public nombreCasesEnErreur(): number {
+    let compteur = 0;
+    for (let i = 0; i < this.solution.length; i++) {
+      for (let j = 0; j < this.solution[i].length; j++) {
+        if (this.visible[i][j]) {
+          const valeurSolution = this.solution[i][j];
+          const valeurSelectionnee = this.valeurs[i][j];
+          if (valeurSolution !== valeurSelectionnee) {
+            console.log('diff', i, j, valeurSolution, valeurSelectionnee);
+            compteur++;
+          }
+        }
+      }
+    }
+    console.log('nombreCasesEnErreur compteur', compteur);
+    return compteur;
+  }
+
+  public clone(): Grille {
+    return new Grille(this.solution, this.visible, this.modifiable, this.valeurs);
   }
 }

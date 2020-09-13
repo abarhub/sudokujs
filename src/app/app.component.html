@@ -17,11 +17,12 @@
       </select>
     </div>
     <div class="p-2">
-      Selection: {{derniereValeurSelectionnee}}<br/>
-      Nombre de cases vide: {{nombreCasesVides}}
+      <p>Selection: {{derniereValeurSelectionnee}}</p>
+      <p>Nombre de cases vide: {{nombreCaseVide()}}</p>
+      <p>Nombre de cases en erreur: {{nombreCaseEnErreur()}}</p>
+    </div>
+    <div class="p-2" *ngIf="nombreCaseVide()==0">
+      Terminé
     </div>
   </div>
 </div>
-
-
-<!--<router-outlet></router-outlet>-->

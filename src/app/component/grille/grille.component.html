@@ -10,7 +10,8 @@
           'dernier-bord-bas': ligne === 8,
           'case-selectionnee': isCaseSelectionnee(ligne, colonne),
           'ligne-colonne-selectionnee-modifiable': isLigneColonneSelectionnee(ligne, colonne)&&estModifiable(ligne, colonne),
-          'ligne-colonne-selectionnee-non-modifiable': isLigneColonneSelectionnee(ligne, colonne)&&!estModifiable(ligne, colonne)
+          'ligne-colonne-selectionnee-non-modifiable': isLigneColonneSelectionnee(ligne, colonne)&&!estModifiable(ligne, colonne),
+          'valeur-a-afficher': isValeurAfficher(ligne, colonne)
           }"
           (click)="definiChiffre(ligne, colonne)"
       >
