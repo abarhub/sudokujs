@@ -2,11 +2,11 @@
   <div class="d-flex  justify-content-center">
     <div class="bouton-chiffre d-flex flex-column" *ngFor="let chiffre of listeChiffre"
          (click)="selectionChiffre(chiffre)"
-         [ngClass]="{selectionne:estSelectionne(chiffre)}">
+         [ngClass]="{selectionne:estSelectionne(chiffre), desactive: nombreRestant(chiffre)===0}">
       <div class="d-flex justify-content-end m-0">
-        <span class="nb-restant">{{nbRestant[chiffre - 1]}}</span>
+        <span class="nb-restant">{{nombreRestant(chiffre)}}</span>
       </div>
-      <div class="valeur">{{chiffre}}</div>
+      <div class="valeur" >{{chiffre}}</div>
     </div>
     <div class="bouton-chiffre valeur" (click)="selectionChiffre(-1)" [ngClass]="{selectionne:estSelectionne(-1)}">X</div>
   </div>

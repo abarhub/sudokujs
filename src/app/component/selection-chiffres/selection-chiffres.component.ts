@@ -59,4 +59,8 @@ export class SelectionChiffresComponent implements OnInit {
     }
     console.log('tab', tab, 'nbRestant', this.nbRestant);
   }
+
+  nombreRestant(chiffre: number): number {
+    return this.nbRestant[chiffre - 1];
+  }
 }

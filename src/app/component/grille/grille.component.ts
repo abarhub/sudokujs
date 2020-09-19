@@ -16,6 +16,7 @@ export class GrilleComponent implements OnInit {
   ligneSelectionnee: number | null = null;
   colonneSelectionnee: number | null = null;
   valeurAfficher: number | null = null;
+  afficherErreur = false;
 
   constructor(private jeuxService: JeuxService) {
   }
@@ -118,6 +119,18 @@ export class GrilleComponent implements OnInit {
       return false;
     }
 
+  }
+
+  isEnErreur(ligne: number, colonne: number): boolean {
+    if (this.afficherErreur) {
+      return this.grille.getValeur(ligne, colonne) !== this.grille.getSolution(ligne, colonne);
+    } else {
+      return false;
+    }
+  }
+
+  setAfficherErreur(afficher: boolean): void {
+    this.afficherErreur=afficher;
   }
 
 }

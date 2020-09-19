@@ -29,6 +29,17 @@ export class Grille {
     }
   }
 
+  getSolution(ligne: number, colonne: number): number {
+    this.verifieLigne(ligne);
+    this.verifieColonne(colonne);
+    this.verifieCase(this.solution, ligne, colonne);
+    if (this.isUndefined(this.solution)) {
+      return 0;
+    } else {
+      return this.solution[ligne][colonne];
+    }
+  }
+
   estVisible(ligne: number, colonne: number): boolean {
     this.verifieLigne(ligne);
     this.verifieColonne(colonne);

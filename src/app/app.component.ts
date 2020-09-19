@@ -89,4 +89,8 @@ export class AppComponent implements AfterViewInit {
       return 0;
     }
   }
+
+  afficheErreur($event: boolean): void {
+    this.grille.setAfficherErreur($event);
+  }
 }
