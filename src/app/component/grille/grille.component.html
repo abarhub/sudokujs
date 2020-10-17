@@ -1,5 +1,5 @@
 <div>
-  <table class="table-bordered">
+  <table class="table-bordered grille">
     <tr *ngFor="let item of [].constructor(9); let ligne = index">
       <td *ngFor="let item2 of [].constructor(9); let colonne = index"
           [ngClass]="{'non-modifiable': !estModifiable(ligne, colonne),

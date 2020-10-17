@@ -1,4 +1,13 @@
 
+$taille-fonte: 2.5em;
+$taille-fonte-restant: 0.8em;
+
+$taille-fonte-min: 2em;
+$taille-fonte-restant-min: 0.6em;
+
+$taille-fonte-min2: 1.5em;
+$taille-fonte-restant-min2: 0.6em;
+
 .bouton-chiffre {
   background-color: aqua;
   padding: 10px;
@@ -6,8 +15,9 @@
 }
 
 .valeur {
-  font-size: 2.5em;
+  font-size: $taille-fonte;
 }
+
 
 .bord {
   /*background-color: aqua;*/
@@ -18,9 +28,34 @@
 }
 
 .nb-restant {
-  font-size: small;
+  font-size: $taille-fonte-restant;
 }
+
 
 .desactive {
   background-color: #558585;
+}
+
+@media (max-height: 768px) {
+
+  .valeur {
+    font-size: $taille-fonte-min;
+  }
+
+  .nb-restant {
+    font-size: $taille-fonte-restant-min;
+  }
+
+}
+
+@media (max-height: 600px) {
+
+  .valeur {
+    font-size: $taille-fonte-min2;
+  }
+
+  .nb-restant {
+    font-size: $taille-fonte-restant-min2;
+  }
+
 }

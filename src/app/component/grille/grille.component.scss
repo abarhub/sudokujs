@@ -1,8 +1,13 @@
 $taille-case: 70px;
-
 $taille-fonte: 2em;
 
-td {
+$taille-case-min: 50px;
+$taille-fonte-min: 1.5em;
+
+$taille-case-min2: 30px;
+$taille-fonte-min2: 1em;
+
+.grille td {
   width: $taille-case;
   height: $taille-case;
   text-align: center;
@@ -10,6 +15,22 @@ td {
   font-size: $taille-fonte;
   /*border-left-style: double;*/
   /*border: 4px double blue;*/
+}
+
+@media (max-height: 768px) {
+  .grille td {
+    width: $taille-case-min;
+    height: $taille-case-min;
+    font-size: $taille-fonte-min;
+  }
+}
+
+@media (max-height: 600px) {
+  .grille td {
+    width: $taille-case-min2;
+    height: $taille-case-min2;
+    font-size: $taille-fonte-min2;
+  }
 }
 
 .non-modifiable {
