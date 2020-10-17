@@ -3,6 +3,7 @@ import {Grille} from '../../models/grille';
 import {GrilleUtils} from '../../utils/grille.utils';
 import {LogUtils} from '../../utils/log.utils';
 import {JeuxService} from '../../service/jeux.service';
+import {LocalStorageService} from '../../service/local-storage.service';
 
 @Component({
   selector: 'app-grille',
@@ -18,7 +19,7 @@ export class GrilleComponent implements OnInit {
   valeurAfficher: number | null = null;
   afficherErreur = false;
 
-  constructor(private jeuxService: JeuxService) {
+  constructor(private jeuxService: JeuxService, private localStorageService: LocalStorageService) {
   }
 
   ngOnInit(): void {
@@ -130,7 +131,11 @@ export class GrilleComponent implements OnInit {
   }
 
   setAfficherErreur(afficher: boolean): void {
-    this.afficherErreur=afficher;
+    this.afficherErreur = afficher;
+  }
+
+  sauve(): void {
+    this.localStorageService.save(this.grille);
   }
 
 }

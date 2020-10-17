@@ -6,6 +6,7 @@ import {SelectionChiffre} from './models/selection-chiffre';
 import {SolveBacktrack} from './service/solve-backtrack.service';
 import {CreationGrilleService} from './service/creation-grille.service';
 import {NiveauDifficulteEnum} from './models/niveau-difficulte.enum';
+import {LocalStorageService} from './service/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,14 @@ import {NiveauDifficulteEnum} from './models/niveau-difficulte.enum';
 })
 export class AppComponent implements AfterViewInit {
   title = 'sudokujs';
-  derniereValeurSelectionnee: number = 0;
-  niveau: string = 'facile';
+  derniereValeurSelectionnee = 0;
+  niveau = 'facile';
   nombreCasesVides = 0;
 
   @ViewChild(GrilleComponent) grille: GrilleComponent;
 
-  constructor(private jeux: JeuxService, private solveBacktrack: SolveBacktrack, private creationGrilleService: CreationGrilleService) {
+  constructor(private jeux: JeuxService, private solveBacktrack: SolveBacktrack, private creationGrilleService: CreationGrilleService,
+              private localStorageService: LocalStorageService) {
   }
 
   ngAfterViewInit(): void {
@@ -92,5 +94,18 @@ export class AppComponent implements AfterViewInit {
 
   afficheErreur($event: boolean): void {
     this.grille.setAfficherErreur($event);
+  }
+
+  sauver(): void {
+    this.grille.sauve();
+  }
+
+  charger(): void {
+    const grille = this.localStorageService.charger();
+    if (grille) {
+      console.log('res', grille);
+      this.grille.init2(grille);
+      this.nombreCasesVides = grille.nombreCasesVides();
+    }
   }
 }

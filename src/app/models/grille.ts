@@ -157,4 +157,8 @@ export class Grille {
   public clone(): Grille {
     return new Grille(this.solution, this.visible, this.modifiable, this.valeurs);
   }
+
+  public toString(): string {
+    return JSON.stringify(this);
+  }
 }
