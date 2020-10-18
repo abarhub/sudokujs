@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {JeuxService} from './service/jeux.service';
 import {GrilleComponent} from './component/grille/grille.component';
-import {Grille} from './models/grille';
 import {SelectionChiffre} from './models/selection-chiffre';
 import {SolveBacktrack} from './service/solve-backtrack.service';
 import {CreationGrilleService} from './service/creation-grille.service';
@@ -18,6 +17,7 @@ export class AppComponent implements AfterViewInit {
   derniereValeurSelectionnee = 0;
   niveau = 'facile';
   nombreCasesVides = 0;
+  remplissageChiffres: boolean = false;
 
   @ViewChild(GrilleComponent) grille: GrilleComponent;
 
@@ -107,5 +107,9 @@ export class AppComponent implements AfterViewInit {
       this.grille.init2(grille);
       this.nombreCasesVides = grille.nombreCasesVides();
     }
+  }
+
+  remplissageAutoChiffres($event: boolean): void {
+    this.remplissageChiffres = $event;
   }
 }

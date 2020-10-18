@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Grille} from '../../models/grille';
 import {GrilleUtils} from '../../utils/grille.utils';
 import {LogUtils} from '../../utils/log.utils';
@@ -18,6 +18,9 @@ export class GrilleComponent implements OnInit {
   colonneSelectionnee: number | null = null;
   valeurAfficher: number | null = null;
   afficherErreur = false;
+
+  @Input()
+  remplissageAutoChiffre: boolean;
 
   constructor(private jeuxService: JeuxService, private localStorageService: LocalStorageService) {
   }
@@ -62,16 +65,15 @@ export class GrilleComponent implements OnInit {
   setSelection(derniereValeurSelectionnee: number | null): void {
     this.valeurSelectionnee = derniereValeurSelectionnee;
     if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null) {
-      this.definiChiffre(this.ligneSelectionnee, this.colonneSelectionnee);
+      this.definiChiffre(this.ligneSelectionnee, this.colonneSelectionnee, true);
       this.ligneSelectionnee = null;
       this.colonneSelectionnee = null;
     }
   }
 
-  definiChiffre(ligne: number, colonne: number): void {
-    if (this.valeurSelectionnee) {
+  definiChiffre(ligne: number, colonne: number, forceValeur: boolean = false): void {
+    if (this.valeurSelectionnee && (this.remplissageAutoChiffre || forceValeur || this.valeurSelectionnee === -1)) {
       if (this.estModifiable(ligne, colonne)) {
-
         if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
           this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
           this.grille.setVisible(ligne, colonne, true);

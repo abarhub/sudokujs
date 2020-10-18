@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {SelectionChiffre} from '../../models/selection-chiffre';
 import {JeuxService} from '../../service/jeux.service';
 import {Grille} from '../../models/grille';
@@ -14,7 +14,11 @@ export class SelectionChiffresComponent implements OnInit {
   nbRestant: number[];
   listeChiffre: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  @Output() selection = new EventEmitter<SelectionChiffre>();
+  @Input()
+  remplissageAutoChiffre: boolean;
+
+  @Output()
+  selection = new EventEmitter<SelectionChiffre>();
 
   constructor(private jeuxService: JeuxService) {
     this.nbRestant = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -30,7 +34,9 @@ export class SelectionChiffresComponent implements OnInit {
     if (this.chiffreSelectionnee !== chiffre) {
       const selection = new SelectionChiffre();
       selection.valeur = chiffre;
-      this.chiffreSelectionnee = chiffre;
+      if (this.remplissageAutoChiffre || chiffre === -1) {
+        this.chiffreSelectionnee = chiffre;
+      }
       this.selection.emit(selection);
     } else {
       this.chiffreSelectionnee = null;
