@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Grille} from '../../models/grille';
 import {GrilleUtils} from '../../utils/grille.utils';
-import {LogUtils} from '../../utils/log.utils';
 import {JeuxService} from '../../service/jeux.service';
 import {LocalStorageService} from '../../service/local-storage.service';
+import {TypeEvenementEnum} from '../../models/type-evenement.enum';
+import {EvenementGrille} from '../../models/evenement-grille';
 
 @Component({
   selector: 'app-grille',
@@ -26,6 +27,21 @@ export class GrilleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.jeuxService.evenementGrille$.subscribe(event => {
+      if (event.typeEvenement === TypeEvenementEnum.CREATION_GRILLE) {
+        this.grille = event.grille;
+      } else if (event.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE) {
+        if (event.selectionChiffre) {
+          const derniereValeurSelectionnee = event.selectionChiffre.valeur;
+          if ((derniereValeurSelectionnee >= 1 && derniereValeurSelectionnee <= 9)
+            || derniereValeurSelectionnee === -1) {
+            this.setSelection(derniereValeurSelectionnee);
+          } else {
+            this.setSelection(null);
+          }
+        }
+      }
+    });
   }
 
   case(ligne: number, colonne: number): string {
@@ -39,11 +55,6 @@ export class GrilleComponent implements OnInit {
     } else {
       return '';
     }
-  }
-
-  init2(grille: Grille): void {
-    this.grille = grille;
-    this.jeuxService.modificationGrille$.next(this.grille.clone());
   }
 
   estVisible(ligne: number, colonne: number): boolean {
@@ -62,7 +73,7 @@ export class GrilleComponent implements OnInit {
     }
   }
 
-  setSelection(derniereValeurSelectionnee: number | null): void {
+  private setSelection(derniereValeurSelectionnee: number | null): void {
     this.valeurSelectionnee = derniereValeurSelectionnee;
     if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null) {
       this.definiChiffre(this.ligneSelectionnee, this.colonneSelectionnee, true);
@@ -77,10 +88,10 @@ export class GrilleComponent implements OnInit {
         if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
           this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
           this.grille.setVisible(ligne, colonne, true);
-          this.jeuxService.modificationGrille$.next(this.grille.clone());
+          this.jeuxService.modificationGrille(this.grille.clone());
         } else if (this.valeurSelectionnee === -1) {
           this.grille.setVisible(ligne, colonne, false);
-          this.jeuxService.modificationGrille$.next(this.grille.clone());
+          this.jeuxService.modificationGrille(this.grille.clone());
         }
       }
     } else {

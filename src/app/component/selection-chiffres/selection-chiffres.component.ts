@@ -1,7 +1,9 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SelectionChiffre} from '../../models/selection-chiffre';
 import {JeuxService} from '../../service/jeux.service';
 import {Grille} from '../../models/grille';
+import {TypeEvenementEnum} from '../../models/type-evenement.enum';
+import {EvenementGrille} from '../../models/evenement-grille';
 
 @Component({
   selector: 'app-selection-chiffres',
@@ -17,16 +19,19 @@ export class SelectionChiffresComponent implements OnInit {
   @Input()
   remplissageAutoChiffre: boolean;
 
-  @Output()
-  selection = new EventEmitter<SelectionChiffre>();
-
   constructor(private jeuxService: JeuxService) {
     this.nbRestant = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
   ngOnInit(): void {
-    this.jeuxService.modificationGrille$.subscribe(grille => {
-      this.calculNombreRestant(grille);
+    this.jeuxService.evenementGrille$.subscribe(evenement => {
+      if (evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE ||
+        evenement.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE||
+        evenement.typeEvenement === TypeEvenementEnum.MODIFICATION_GRILLE) {
+        if (evenement.grille) {
+          this.calculNombreRestant(evenement.grille);
+        }
+      }
     });
   }
 
@@ -37,12 +42,12 @@ export class SelectionChiffresComponent implements OnInit {
       if (this.remplissageAutoChiffre || chiffre === -1) {
         this.chiffreSelectionnee = chiffre;
       }
-      this.selection.emit(selection);
+      this.jeuxService.selectionChiffre(selection);
     } else {
       this.chiffreSelectionnee = null;
       const selection = new SelectionChiffre();
       selection.valeur = 0;
-      this.selection.emit(selection);
+      this.jeuxService.selectionChiffre(selection);
     }
   }
 

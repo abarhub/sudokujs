@@ -11,7 +11,7 @@ export class CreationGrilleService {
 
   SUBSECTION_SIZE = 3;
 
-  nouvelleGrille(niveauDificulte: NiveauDifficulteEnum): Grille {
+  nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
 
     // création de la grille vide
     const tab: number[][] = [];
@@ -31,7 +31,7 @@ export class CreationGrilleService {
 
     // suppression des cases
     let nombreCase: number;
-    switch (niveauDificulte) {
+    switch (niveauDifficulte) {
       case NiveauDifficulteEnum.FACILE:
         // 40 à 45
         nombreCase = RandomUtils.getRandomInt(40, 45);

@@ -1,0 +1,5 @@
+export enum TypeEvenementEnum {
+  CREATION_GRILLE,
+  CHOIX_CHIFFRE,
+  MODIFICATION_GRILLE
+}
