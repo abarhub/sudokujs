@@ -8,13 +8,15 @@ import { GrilleComponent } from './component/grille/grille.component';
 import { SelectionChiffresComponent } from './component/selection-chiffres/selection-chiffres.component';
 import {FormsModule} from '@angular/forms';
 import { ToggleComponent } from './component/toggle/toggle.component';
+import { MenuComponent } from './component/menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GrilleComponent,
     SelectionChiffresComponent,
-    ToggleComponent
+    ToggleComponent,
+    MenuComponent
   ],
     imports: [
         BrowserModule,

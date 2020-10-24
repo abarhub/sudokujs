@@ -26,10 +26,16 @@ export class SelectionChiffresComponent implements OnInit {
   ngOnInit(): void {
     this.jeuxService.evenementGrille$.subscribe(evenement => {
       if (evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE ||
-        evenement.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE||
+        evenement.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE ||
         evenement.typeEvenement === TypeEvenementEnum.MODIFICATION_GRILLE) {
         if (evenement.grille) {
           this.calculNombreRestant(evenement.grille);
+        }
+        if (evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE) {
+          if (this.chiffreSelectionnee) {
+            // deselection du chiffre s'il y en a un selectionné
+            this.selectionChiffre(this.chiffreSelectionnee);
+          }
         }
       }
     });

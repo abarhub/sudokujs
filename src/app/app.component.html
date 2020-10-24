@@ -7,28 +7,5 @@
       <app-selection-chiffres [remplissageAutoChiffre]="remplissageChiffres"></app-selection-chiffres>
     </div>
   </div>
-  <div class="d-flex flex-column">
-    <div class="p-2">
-      <button (click)="creationGrille()" class="btn btn-primary m-2">Nouvelle grille</button>
-      <select [(ngModel)]="niveau">
-        <option [ngValue]="'facile'">Facile</option>
-        <option [ngValue]="'moyen'">Moyen</option>
-        <option [ngValue]="'difficile'">Difficile</option>
-      </select>
-    </div>
-    <div class="p-2">
-      <p>Selection: {{derniereValeurSelectionnee}}</p>
-      <p>Nombre de cases vide: {{nombreCaseVide()}}</p>
-      <p>Nombre de cases en erreur: {{nombreCaseEnErreur()}}</p>
-      <p><toggle-button (valeurSelectionnee)="afficheErreur($event)"></toggle-button> Afficher Erreurs</p>
-      <p><toggle-button (valeurSelectionnee)="remplissageAutoChiffres($event)" [valeur]="remplissageChiffres"></toggle-button> Remplissage automatique des chiffres</p>
-    </div>
-    <div class="p-2" *ngIf="nombreCaseVide()==0">
-      Terminé
-    </div>
-    <div>
-      <button (click)="sauver()" class="btn btn-primary m-2">Sauver</button>
-      <button (click)="charger()" class="btn btn-primary m-2">Charger</button>
-    </div>
-  </div>
+  <app-menu></app-menu>
 </div>

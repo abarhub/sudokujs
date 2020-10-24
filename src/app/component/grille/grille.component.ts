@@ -2,9 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Grille} from '../../models/grille';
 import {GrilleUtils} from '../../utils/grille.utils';
 import {JeuxService} from '../../service/jeux.service';
-import {LocalStorageService} from '../../service/local-storage.service';
 import {TypeEvenementEnum} from '../../models/type-evenement.enum';
-import {EvenementGrille} from '../../models/evenement-grille';
 
 @Component({
   selector: 'app-grille',
@@ -23,13 +21,17 @@ export class GrilleComponent implements OnInit {
   @Input()
   remplissageAutoChiffre: boolean;
 
-  constructor(private jeuxService: JeuxService, private localStorageService: LocalStorageService) {
+  constructor(private jeuxService: JeuxService) {
   }
 
   ngOnInit(): void {
     this.jeuxService.evenementGrille$.subscribe(event => {
       if (event.typeEvenement === TypeEvenementEnum.CREATION_GRILLE) {
         this.grille = event.grille;
+        this.valeurSelectionnee = null;
+        this.ligneSelectionnee = null;
+        this.colonneSelectionnee = null;
+        this.valeurAfficher = null;
       } else if (event.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE) {
         if (event.selectionChiffre) {
           const derniereValeurSelectionnee = event.selectionChiffre.valeur;
@@ -40,6 +42,9 @@ export class GrilleComponent implements OnInit {
             this.setSelection(null);
           }
         }
+      } else if (event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR ||
+        event.typeEvenement === TypeEvenementEnum.CACHER_ERREUR) {
+        this.afficherErreur = event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR;
       }
     });
   }
@@ -141,14 +146,6 @@ export class GrilleComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  setAfficherErreur(afficher: boolean): void {
-    this.afficherErreur = afficher;
-  }
-
-  sauve(): void {
-    this.localStorageService.save(this.grille);
   }
 
 }

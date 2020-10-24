@@ -49,4 +49,14 @@ export class JeuxService {
     evenement.selectionChiffre = selection;
     this.evenementGrille$.next(evenement);
   }
+
+  public afficherErreur(afficher: boolean): void {
+    const evenement = new EvenementGrille();
+    if (afficher) {
+      evenement.typeEvenement = TypeEvenementEnum.AFFICHER_ERREUR;
+    } else {
+      evenement.typeEvenement = TypeEvenementEnum.CACHER_ERREUR;
+    }
+    this.evenementGrille$.next(evenement);
+  }
 }
