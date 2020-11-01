@@ -24,6 +24,20 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Build Docker image
+
+Run `docker build -t sudokujs .` to build Docker image.
+
+## Run Docker image
+
+Run `docker run -dit --name sudokujs-app -p 8080:80 sudokujs` to start Docker image.
+
+Go to `http://localhost:8080/`
+
+## Stop docker image
+
+Run `docker stop sudokujs-app` to stop Docker image.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
