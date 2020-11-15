@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Grille} from '../models/grille';
+import {ArrayUtils} from '../utils/array.utils';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SolveBacktrack {
+export class SolveBacktrackService {
 
   BOARD_START_INDEX = 0;
   BOARD_SIZE = 9;
@@ -17,7 +18,22 @@ export class SolveBacktrack {
 
   }
 
-  public solve(board: number[][]): boolean {
+  public existeSolution(board: number[][]): boolean {
+    return this.solve(board, 1) > 0;
+  }
+
+  public solutionUnique(board: number[][]): boolean {
+    return this.solve(board, 2) > 0;
+  }
+
+  public solution(board: number[][]): number[][][] {
+    const listeSolutions: number[][][] = [];
+    this.solve(board, -1, listeSolutions);
+    return listeSolutions;
+  }
+
+  private solve(board: number[][], maxSolution: number, listeSolutions: number[][][] | null = null): number {
+    let nbSolution: number = 0;
     for (let row: number = this.BOARD_START_INDEX; row < this.BOARD_SIZE; row++) {
       for (let column: number = this.BOARD_START_INDEX; column < this.BOARD_SIZE; column++) {
         if (board[row][column] === this.NO_VALUE) {
@@ -27,19 +43,25 @@ export class SolveBacktrack {
             //console.log('affectation', k, row, column);
             if (this.isValid(board, row, column)) {
               //console.log('trouve', k, row, column);
-              if (this.solve(board)) {
+              const nbSousSolution = this.solve(board, maxSolution, listeSolutions);
+              nbSolution += nbSousSolution;
+              if (nbSolution > 0 && maxSolution > 0 && nbSolution <= maxSolution) {
                 //console.log('solution', board);
-                return true;
+                return nbSolution;
               }
             }
             board[row][column] = this.NO_VALUE;
           }
           //console.log('aucune valeur trouver pour la case ', row, column, board);
-          return false;
+          return 0;
         }
       }
     }
-    return true;
+    nbSolution++;
+    if (listeSolutions !== null) {
+      listeSolutions.push(ArrayUtils.cloneArrayNumber(board));
+    }
+    return nbSolution;
   }
 
   private isValid(board: number[][], row: number, column: number): boolean {

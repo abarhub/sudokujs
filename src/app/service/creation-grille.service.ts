@@ -3,6 +3,7 @@ import {Grille} from '../models/grille';
 import {ArrayUtils} from '../utils/array.utils';
 import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
 import {RandomUtils} from '../utils/random.utils';
+import {SolveBacktrackService} from './solve-backtrack.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,10 @@ import {RandomUtils} from '../utils/random.utils';
 export class CreationGrilleService {
 
   SUBSECTION_SIZE = 3;
+
+
+  constructor(private solveBacktrackService: SolveBacktrackService) {
+  }
 
   nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
 
@@ -29,25 +34,46 @@ export class CreationGrilleService {
 
     console.log('tab=', tab);
 
-    // suppression des cases
-    let nombreCase: number;
-    switch (niveauDifficulte) {
-      case NiveauDifficulteEnum.FACILE:
-        // 40 à 45
-        nombreCase = RandomUtils.getRandomInt(40, 45);
-        break;
-      case NiveauDifficulteEnum.MOYEN:
-        // 46 à 49
-        nombreCase = RandomUtils.getRandomInt(46, 49);
-        break;
-      case NiveauDifficulteEnum.DIFFICILE:
-        // 50 à 53 (Plus de 54 à 58)
-        nombreCase = RandomUtils.getRandomInt(50, 53);
-        break;
+    let trouve = false;
+    let nbTentative = 1;
+    let caseSupprimee: number[][];
+    while (!trouve && nbTentative < 10) {
+      // suppression des cases
+      let nombreCase: number;
+      switch (niveauDifficulte) {
+        case NiveauDifficulteEnum.FACILE:
+          // 40 à 45
+          nombreCase = RandomUtils.getRandomInt(40, 45);
+          break;
+        case NiveauDifficulteEnum.MOYEN:
+          // 46 à 49
+          nombreCase = RandomUtils.getRandomInt(46, 49);
+          break;
+        case NiveauDifficulteEnum.DIFFICILE:
+          // 50 à 53 (Plus de 54 à 58)
+          nombreCase = RandomUtils.getRandomInt(50, 53);
+          break;
+      }
+      console.log('nomCaseVide', nombreCase);
+      caseSupprimee = ArrayUtils.cloneArrayNumber(tab);
+      this.suppressionCases(caseSupprimee, nombreCase);
+
+
+      const tmp = ArrayUtils.cloneArrayNumber(caseSupprimee);
+      console.log('res debut', new Date());
+      const res = this.solveBacktrackService.solutionUnique(tmp);
+      console.log('res', res, new Date());
+
+      if (res) {
+        trouve = true;
+      }
+      nbTentative++;
     }
-    console.log("nomCaseVide", nombreCase);
-    const caseSupprimee = ArrayUtils.cloneArrayNumber(tab);
-    this.suppressionCases(caseSupprimee, nombreCase);
+
+    if (!trouve) {
+      console.error('Impossible de créer la grille');
+      return null;
+    }
 
     const visible: boolean[][] = [];
     for (let i = 0; i < caseSupprimee.length; i++) {

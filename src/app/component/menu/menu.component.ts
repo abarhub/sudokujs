@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {JeuxService} from '../../service/jeux.service';
-import {SolveBacktrack} from '../../service/solve-backtrack.service';
 import {CreationGrilleService} from '../../service/creation-grille.service';
 import {LocalStorageService} from '../../service/local-storage.service';
 import {NiveauDifficulteEnum} from '../../models/niveau-difficulte.enum';
@@ -20,7 +19,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   remplissageChiffres: boolean = false;
   grille: Grille | null = null;
 
-  constructor(private jeuxService: JeuxService, private solveBacktrack: SolveBacktrack, private creationGrilleService: CreationGrilleService,
+  constructor(private jeuxService: JeuxService, private creationGrilleService: CreationGrilleService,
               private localStorageService: LocalStorageService) {
   }
 
