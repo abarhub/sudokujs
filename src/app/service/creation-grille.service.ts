@@ -101,8 +101,8 @@ export class CreationGrilleService {
       const colonne2 = val[1];
       const valeurActuelle = tab[ligne2][colonne2];
       let retourArriere = false;
-      console.log('position', position, ligne2, colonne2);
-      console.log('tab', tab, this.afficheTab(tab));
+      // console.log('position', position, ligne2, colonne2);
+      // console.log('tab', tab, this.afficheTab(tab));
       let valeurs: number[];
       let recalcul = false;
       if (valeursPossibles.has(position)) {
@@ -113,7 +113,7 @@ export class CreationGrilleService {
         recalcul = true;
         valeursPossibles.set(position, valeurs);
       }
-      console.log('valeurs', valeurs);
+      // console.log('valeurs', valeurs);
       if (valeurs.length === 0) {
         if (position >= listePositions.length) {
           // pas de solution

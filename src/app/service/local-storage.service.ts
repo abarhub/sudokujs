@@ -1,24 +1,31 @@
 import {Grille} from '../models/grille';
 import {Injectable} from '@angular/core';
+import {Parametres} from '../models/parametres';
+import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
 
-  readonly key: string = 'valeur';
+  readonly keyGrille: string = 'valeur';
+  readonly keyParametres: string = 'parametres';
   localStorage: Storage;
 
-  save(grille: Grille): void {
-    localStorage.setItem(this.key, grille.toString());
+  sauveGrille(grille: Grille): void {
+    localStorage.setItem(this.keyGrille, grille.toString());
   }
 
-  load(): Grille | null {
-    return null;
+  sauveParametres(parametres: Parametres): void {
+    if (parametres) {
+      const param = JSON.stringify(parametres);
+      console.log('sauve param', param);
+      localStorage.setItem(this.keyParametres, param);
+    }
   }
 
-  charger(): Grille | null {
-    const valeur = localStorage.getItem(this.key);
+  chargerGrille(): Grille | null {
+    const valeur = localStorage.getItem(this.keyGrille);
     if (valeur) {
       const item = JSON.parse(valeur);
       if (item) {
@@ -89,5 +96,28 @@ export class LocalStorageService {
       }
     }
     return [];
+  }
+
+  chargerParametres(): Parametres | null {
+    const valeur = localStorage.getItem(this.keyParametres);
+    if (valeur) {
+      const param = JSON.parse(valeur);
+      if (param) {
+        const parametres = new Parametres();
+        console.log('parametres param', param);
+        if (typeof param?.remplissageChiffres === 'boolean') {
+          parametres.remplissageChiffres = param?.remplissageChiffres;
+        }
+        if (param?.niveauDifficulte in NiveauDifficulteEnum) {
+          parametres.niveauDifficulte = param?.niveauDifficulte;
+        }
+        console.log('parametres param2', parametres);
+        return parametres;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 }
