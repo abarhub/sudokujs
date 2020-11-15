@@ -243,8 +243,12 @@ export class CreationGrilleService {
       if (tab[ligne][colonne] > 0) {
         tab[ligne][colonne] = 0;
         listePositions.splice(caseASupprimer, 1);
-      } else {
-
+      }
+      // suppression de la case en mirroir
+      if (tab[colonne][ligne] > 0) {
+        tab[colonne][ligne] = 0;
+        listePositions.splice(caseASupprimer, 1);
+        i++;
       }
     }
   }
