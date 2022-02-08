@@ -1,4 +1,7 @@
 
+# version 0.4.0 (08/02/2022) :
+* passage à angular 13
+
 # version 0.3.0 () :
 * passage à angular 12
 

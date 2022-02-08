@@ -14,7 +14,7 @@ describe('SolveBacktrack', () => {
     expect(solveBacktrackService).toBeTruthy();
   });
 
-  let sudokuSimple1: number[][] = [
+  const sudokuSimple1: number[][] = [
     [7, 0, 8, 1, 0, 0, 4, 0, 0],
     [6, 0, 5, 0, 4, 0, 0, 0, 7],
     [0, 9, 0, 7, 0, 0, 0, 0, 0],
@@ -26,7 +26,7 @@ describe('SolveBacktrack', () => {
     [0, 0, 0, 0, 0, 8, 9, 0, 3]
   ];
 
-  let sudokuSimple1Solution: number[][] = [
+  const sudokuSimple1Solution: number[][] = [
     [7, 2, 8, 1, 3, 6, 4, 5, 9],
     [6, 1, 5, 8, 4, 9, 3, 2, 7],
     [3, 9, 4, 7, 2, 5, 6, 8, 1],
@@ -38,7 +38,7 @@ describe('SolveBacktrack', () => {
     [4, 6, 2, 5, 7, 8, 9, 1, 3]
   ];
 
-  let sudokuSimple2: number[][] = [
+  const sudokuSimple2: number[][] = [
     [5, 1, 7, 4, 0, 0, 8, 6, 3],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 4, 0, 6, 0, 1, 0, 9, 0],
@@ -50,7 +50,7 @@ describe('SolveBacktrack', () => {
     [3, 6, 2, 1, 0, 0, 5, 0, 7]
   ];
 
-  let sudokuSimple2Solution: number[][] = [
+  const sudokuSimple2Solution: number[][] = [
     [5, 1, 7, 4, 2, 9, 8, 6, 3],
     [6, 2, 9, 8, 7, 3, 4, 5, 1],
     [8, 4, 3, 6, 5, 1, 7, 9, 2],
@@ -64,7 +64,7 @@ describe('SolveBacktrack', () => {
 
   /* sudoku moyen */
 
-  let sudokuMoyen1: number[][] = [
+  const sudokuMoyen1: number[][] = [
     [0, 0, 0, 4, 7, 0, 8, 0, 0],
     [0, 7, 1, 0, 0, 6, 0, 2, 0],
     [0, 0, 0, 0, 5, 0, 7, 0, 0],
@@ -76,7 +76,7 @@ describe('SolveBacktrack', () => {
     [0, 0, 5, 0, 3, 9, 0, 0, 0]
   ];
 
-  let sudokuMoyen1Solution: number[][] = [
+  const sudokuMoyen1Solution: number[][] = [
     [5, 6, 9, 4, 7, 2, 8, 3, 1],
     [8, 7, 1, 3, 9, 6, 5, 2, 4],
     [3, 2, 4, 1, 5, 8, 7, 9, 6],
@@ -90,55 +90,52 @@ describe('SolveBacktrack', () => {
 
   it('existe une solution', () => {
 
-    let tab: number[][] = sudokuSimple1;
-
-    let tabSolution: number[][] = sudokuSimple1Solution;
-
-    let res = solveBacktrackService.existeSolution(tab);
+    const tab: number[][] = sudokuSimple1;
+    const res = solveBacktrackService.existeSolution(tab);
     expect(res).toBeTrue();
 
   });
 
   it('résolution sudoku0 simple 1', () => {
 
-    let tab: number[][] = sudokuSimple1;
+    const tab: number[][] = sudokuSimple1;
 
-    let tabSolution: number[][] = sudokuSimple1Solution;
+    const tabSolution: number[][] = sudokuSimple1Solution;
 
-    let res = solveBacktrackService.solution(tab);
+    const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
 
   });
 
   it('résolution sudoku simple 2', () => {
 
-    let tab: number[][] = sudokuSimple2;
+    const tab: number[][] = sudokuSimple2;
 
-    let tabSolution: number[][] = sudokuSimple2Solution;
+    const tabSolution: number[][] = sudokuSimple2Solution;
 
-    let res = solveBacktrackService.solution(tab);
+    const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
 
   });
 
   it('résolution sudoku moyen 1', () => {
 
-    let tab: number[][] = sudokuMoyen1;
+    const tab: number[][] = sudokuMoyen1;
 
-    let tabSolution: number[][] = sudokuMoyen1Solution;
+    const tabSolution: number[][] = sudokuMoyen1Solution;
 
-    let res = solveBacktrackService.solution(tab);
+    const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
 
   });
 
   it('résolution sudoku moyen 2', () => {
 
-    let tab: number[][] = sudokuMoyen1;
+    const tab: number[][] = sudokuMoyen1;
 
-    let tabSolution: number[][] = sudokuMoyen1Solution;
+    const tabSolution: number[][] = sudokuMoyen1Solution;
 
-    let res = solveBacktrackService.solution(tab);
+    const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
 
   });
