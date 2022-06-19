@@ -1,4 +1,5 @@
 import {ArrayUtils} from '../utils/array.utils';
+import {Observable, Subject} from 'rxjs';
 
 export class Grille {
 
@@ -6,6 +7,7 @@ export class Grille {
   private valeurs: number[][];
   private visible: boolean[][];
   private modifiable: boolean[][];
+  private miseAJour: Subject<void>;
 
   constructor(solution: number[][], visible: boolean[][], modifiable: boolean[][], valeur?: number[][]) {
     this.solution = ArrayUtils.cloneArrayNumber(solution);
@@ -16,6 +18,7 @@ export class Grille {
     } else {
       this.valeurs = ArrayUtils.cloneArrayNumber(this.solution);
     }
+    this.miseAJour = new Subject<void>();
   }
 
   getValeur(ligne: number, colonne: number): number {
@@ -56,6 +59,7 @@ export class Grille {
     this.verifieColonne(colonne);
     this.verifieCase(this.valeurs, ligne, colonne);
     this.visible[ligne][colonne] = visibilite;
+    this.miseAJour.next();
   }
 
   setValeur(ligne: number, colonne: number, valeur: number): void {
@@ -64,9 +68,10 @@ export class Grille {
     this.verifieCase(this.valeurs, ligne, colonne);
     this.verifieValeur(valeur);
     if (!this.estModifiable(ligne, colonne)) {
-      throw new Error('Impossible de mofifier la case ' + ligne + '/' + colonne + ' !');
+      throw new Error('Impossible de modifier la case ' + ligne + '/' + colonne + ' !');
     } else {
       this.valeurs[ligne][colonne] = valeur;
+      this.miseAJour.next();
     }
   }
 
@@ -160,5 +165,9 @@ export class Grille {
 
   public toString(): string {
     return JSON.stringify(this);
+  }
+
+  public miseAjour(): Observable<void> {
+    return this.miseAJour;
   }
 }

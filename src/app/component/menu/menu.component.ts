@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {JeuxService} from '../../service/jeux.service';
 import {CreationGrilleService} from '../../service/creation-grille.service';
 import {LocalStorageService} from '../../service/local-storage.service';
@@ -6,21 +6,25 @@ import {NiveauDifficulteEnum} from '../../models/niveau-difficulte.enum';
 import {TypeEvenementEnum} from '../../models/type-evenement.enum';
 import {Grille} from '../../models/grille';
 import {Parametres} from '../../models/parametres';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit, AfterViewInit {
+export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   derniereValeurSelectionnee = 0;
   nombreCasesVides = 0;
-  remplissageChiffres: boolean = false;
+  remplissageChiffres = false;
   grille: Grille | null = null;
   parametres: Parametres = new Parametres();
+  nombreErreurs = 0;
 
   NiveauDifficulteEnum = NiveauDifficulteEnum;
+  isOver$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private jeuxService: JeuxService, private creationGrilleService: CreationGrilleService,
               private localStorageService: LocalStorageService) {
@@ -40,11 +44,21 @@ export class MenuComponent implements OnInit, AfterViewInit {
     if (grilleSauve) {
       grille = grilleSauve;
       this.jeuxService.chargerGrille(grille);
+      grille.miseAjour()
+        .pipe(takeUntil(this.isOver$))
+        .subscribe(() => {
+          this.miseAJourCompteurs();
+        });
       console.log('chargement grille sauve ok');
     } else {
       console.log('aucune grillle. Création d\'une nouvelle grille');
       const niveauDifficulte = this.parametres.niveauDifficulte;
       grille = this.jeuxService.nouvelleGrille(niveauDifficulte);
+      grille.miseAjour()
+        .pipe(takeUntil(this.isOver$))
+        .subscribe(() => {
+          this.miseAJourCompteurs();
+        });
     }
 
     this.nombreCasesVides = grille.nombreCasesVides();
@@ -58,9 +72,20 @@ export class MenuComponent implements OnInit, AfterViewInit {
         if (evenement.grille) {
           this.grille = evenement.grille;
           this.sauveGrille();
+          this.miseAJourCompteurs();
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.isOver$.next(true);
+    this.isOver$.unsubscribe();
+  }
+
+  private miseAJourCompteurs(): void {
+    this.nombreErreurs = this.grille.nombreCasesEnErreur();
+    this.nombreCasesVides = this.grille.nombreCasesVides();
   }
 
   creationGrille(): void {
@@ -68,22 +93,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
     const grille = this.jeuxService.nouvelleGrille(this.parametres.niveauDifficulte);
     this.nombreCasesVides = grille.nombreCasesVides();
     this.sauveGrille();
-  }
-
-  nombreCaseVide(): number {
-    if (this.grille) {
-      return this.grille.nombreCasesVides();
-    } else {
-      return 0;
-    }
-  }
-
-  nombreCaseEnErreur(): number {
-    if (this.grille) {
-      return this.grille.nombreCasesEnErreur();
-    } else {
-      return 0;
-    }
   }
 
   afficheErreur(afficherErreur: boolean): void {
@@ -100,7 +109,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
     if (grille) {
       console.log('res', grille);
       this.jeuxService.chargerGrille(grille);
-      this.nombreCasesVides = grille.nombreCasesVides();
+      grille.miseAjour()
+        .pipe(takeUntil(this.isOver$))
+        .subscribe(() => {
+          this.miseAJourCompteurs();
+        });
     }
   }
 
