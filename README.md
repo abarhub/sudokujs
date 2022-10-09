@@ -1,5 +1,7 @@
 # Sudokujs
 
+[![Tests CI](https://github.com/abarhub/sudokujs/actions/workflows/npm_action.yml/badge.svg?branch=master)](https://github.com/abarhub/sudokujs/actions/workflows/npm_action.yml)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
 
 [Demo](https://abarhub.github.io/sudokujs/sudokujs/)
