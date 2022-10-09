@@ -1,4 +1,8 @@
 
+# version 0.6.0 (09/10/2022)
+* passage à angular 14.2.5
+* ajout des github actions
+
 # version 0.5.0 (19/06/2022)
 * passage à angular 14
 
