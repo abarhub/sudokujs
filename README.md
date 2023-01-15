@@ -2,7 +2,7 @@
 
 [![Tests CI](https://github.com/abarhub/sudokujs/actions/workflows/npm_action.yml/badge.svg?branch=master)](https://github.com/abarhub/sudokujs/actions/workflows/npm_action.yml)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.0.
 
 [Demo](https://abarhub.github.io/sudokujs/sudokujs/)
 
@@ -20,9 +20,17 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Generate site
+
+Run `npm run buildprod` to generate site on directory docs.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running unit tests without gui
+
+Run `npm run test_no_ui` to execute the unit tests without gui via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
