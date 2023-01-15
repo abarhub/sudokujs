@@ -1,4 +1,8 @@
 
+# version 0.7.0 (15/01/2023)
+* mise à jour vers angular 15.1.0
+* ajout du fichier UPDATE.md
+
 # version 0.6.0 (09/10/2022)
 * passage à angular 14.2.5
 * ajout des github actions
