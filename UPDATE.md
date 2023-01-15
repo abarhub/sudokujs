@@ -37,12 +37,12 @@ npm audit
 Ensuite pour les corriger, il faut executer :
 ```shell
 npm audit fix
-```shell
+```
 
 * Test de la mise à jour
 
 Il faut vérifier que tout fonctionne. Pour cela, il faut lancer l'application et vérifier qu'elle fonctionne.
 Ensuite il faut lancer les tests unitaires avec la commande :
  ```shell
-XXX
-```shell
+npm run test_no_ui
+```
