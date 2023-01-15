@@ -50,6 +50,10 @@ Go to `http://localhost:8080/`
 
 Run `docker stop sudokujs-app` to stop Docker image.
 
+## Update
+
+Documentation for update is [here](UPDATE.md)
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
