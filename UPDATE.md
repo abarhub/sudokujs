@@ -22,6 +22,12 @@ Ensuite il faut monter la version de bootstrap et popper en faisant attention à
 npm i bootstrap@XXX @popperjs/core@XXX
 ```
 
+* Mise à jour de compodoc
+La documentation pour la mise à jour est [ici](https://compodoc.app/guides/installation.html)
+```shell
+ng update @compodoc/compodoc
+```
+
 * Analyse des problèmes de sécurité
 Pour analyser les problèmes de sécurité, il faut executer :
 ```shell
