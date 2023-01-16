@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {JeuxService} from '../../service/jeux.service';
 import {CreationGrilleService} from '../../service/creation-grille.service';
 import {LocalStorageService} from '../../service/local-storage.service';
@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
 
   derniereValeurSelectionnee = 0;
   nombreCasesVides = 0;
@@ -30,8 +30,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
               private localStorageService: LocalStorageService) {
   }
 
-  ngAfterViewInit(): void {
-
+  ngAfterContentInit(): void {
     const param = this.localStorageService.chargerParametres();
     if (param) {
       this.parametres = param;
