@@ -1,4 +1,7 @@
 
+# version 0.8.0 (XXX)
+* correction des tests unitaires
+
 # version 0.7.0 (15/01/2023)
 * mise à jour vers angular 15.1.0
 * ajout du fichier UPDATE.md
