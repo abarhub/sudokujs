@@ -37,22 +37,17 @@ export class SolveBacktrackService {
     for (let row: number = this.BOARD_START_INDEX; row < this.BOARD_SIZE; row++) {
       for (let column: number = this.BOARD_START_INDEX; column < this.BOARD_SIZE; column++) {
         if (board[row][column] === this.NO_VALUE) {
-          //console.log('test case', row, column);
           for (let k: number = this.MIN_VALUE; k <= this.MAX_VALUE; k++) {
             board[row][column] = k;
-            //console.log('affectation', k, row, column);
             if (this.isValid(board, row, column)) {
-              //console.log('trouve', k, row, column);
               const nbSousSolution = this.solve(board, maxSolution, listeSolutions);
               nbSolution += nbSousSolution;
               if (nbSolution > 0 && maxSolution > 0 && nbSolution <= maxSolution) {
-                //console.log('solution', board);
                 return nbSolution;
               }
             }
             board[row][column] = this.NO_VALUE;
           }
-          //console.log('aucune valeur trouver pour la case ', row, column, board);
           return 0;
         }
       }
@@ -77,8 +72,6 @@ export class SolveBacktrackService {
         return false;
       }
     }
-    // return IntStream.range(this.BOARD_START_INDEX, this.BOARD_SIZE)
-    //   .allMatch(column -> checkConstraint(board, row, constraint, column));
     return true;
   }
 
@@ -89,8 +82,6 @@ export class SolveBacktrackService {
         return false;
       }
     }
-    // return IntStream.range(BOARD_START_INDEX, BOARD_SIZE)
-    //   .allMatch(row -> checkConstraint(board, row, constraint, column));
     return true;
   }
 
