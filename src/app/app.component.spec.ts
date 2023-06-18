@@ -1,6 +1,10 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {GrilleComponent} from './component/grille/grille.component';
+import {SelectionChiffresComponent} from './component/selection-chiffres/selection-chiffres.component';
+import {MenuComponent} from './component/menu/menu.component';
+import {ToggleComponent} from './component/toggle/toggle.component';
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -9,7 +13,11 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        GrilleComponent,
+        SelectionChiffresComponent,
+        MenuComponent,
+        ToggleComponent
       ],
     }).compileComponents();
   }));
