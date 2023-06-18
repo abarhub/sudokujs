@@ -1,4 +1,7 @@
 
+# version 0.9.0 (18/06/2023)
+* mise à jour vers angular 16.1.1
+
 # version 0.8.0 (XXX)
 * correction des tests unitaires
 
