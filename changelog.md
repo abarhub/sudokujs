@@ -1,4 +1,7 @@
 
+# version 1.0.0 (30/12/2023)
+* mise à jour vers angular 17.0.8
+
 # version 0.9.0 (18/06/2023)
 * mise à jour vers angular 16.1.1
 
