@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ToggleComponent } from './toggle.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 describe('ToggleComponent', () => {
   let component: ToggleComponent;
@@ -9,12 +9,9 @@ describe('ToggleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [ ToggleComponent]
-    })
-    .compileComponents();
+      imports: [FormsModule],
+      declarations: [ToggleComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

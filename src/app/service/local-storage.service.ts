@@ -1,13 +1,12 @@
-import {Grille} from '../models/grille';
-import {Injectable} from '@angular/core';
-import {Parametres} from '../models/parametres';
-import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
+import { Grille } from '../models/grille';
+import { Injectable } from '@angular/core';
+import { Parametres } from '../models/parametres';
+import { NiveauDifficulteEnum } from '../models/niveau-difficulte.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalStorageService {
-
   readonly keyGrille: string = 'valeur';
   readonly keyParametres: string = 'parametres';
   localStorage: Storage;
@@ -32,9 +31,17 @@ export class LocalStorageService {
         const solution: number[][] = this.convertieTabNumber(item, 'solution');
         const valeurs: number[][] = this.convertieTabNumber(item, 'valeurs');
         const visible: boolean[][] = this.convertieTabBoolean(item, 'visible');
-        const modifiable: boolean[][] = this.convertieTabBoolean(item, 'modifiable');
+        const modifiable: boolean[][] = this.convertieTabBoolean(
+          item,
+          'modifiable'
+        );
 
-        if (solution.length > 0 && valeurs.length > 0 && visible.length > 0 && modifiable.length > 0) {
+        if (
+          solution.length > 0 &&
+          valeurs.length > 0 &&
+          visible.length > 0 &&
+          modifiable.length > 0
+        ) {
           return new Grille(solution, visible, modifiable, valeurs);
         }
       }

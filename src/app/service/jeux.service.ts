@@ -1,24 +1,25 @@
-import {Injectable} from '@angular/core';
-import {GrilleService} from './grille.service';
-import {Subject} from 'rxjs';
-import {Grille} from '../models/grille';
-import {CreationGrilleService} from './creation-grille.service';
-import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
-import {EvenementGrille} from '../models/evenement-grille';
-import {TypeEvenementEnum} from '../models/type-evenement.enum';
-import {SelectionChiffre} from '../models/selection-chiffre';
+import { Injectable } from '@angular/core';
+import { GrilleService } from './grille.service';
+import { Subject } from 'rxjs';
+import { Grille } from '../models/grille';
+import { CreationGrilleService } from './creation-grille.service';
+import { NiveauDifficulteEnum } from '../models/niveau-difficulte.enum';
+import { EvenementGrille } from '../models/evenement-grille';
+import { TypeEvenementEnum } from '../models/type-evenement.enum';
+import { SelectionChiffre } from '../models/selection-chiffre';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JeuxService {
-
   modificationGrille$: Subject<Grille> = new Subject<Grille>();
 
   evenementGrille$: Subject<EvenementGrille> = new Subject<EvenementGrille>();
 
-  constructor(private grilleService: GrilleService, private creationGrilleService: CreationGrilleService) {
-  }
+  constructor(
+    private grilleService: GrilleService,
+    private creationGrilleService: CreationGrilleService
+  ) {}
 
   public nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
     const grille = this.creationGrilleService.nouvelleGrille(niveauDifficulte);

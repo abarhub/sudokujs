@@ -1,4 +1,3 @@
-
 $taille-fonte: 2.5em;
 $taille-fonte-restant: 0.8em;
 
@@ -18,7 +17,6 @@ $taille-fonte-restant-min2: 0.6em;
   font-size: $taille-fonte;
 }
 
-
 .bord {
   /*background-color: aqua;*/
 }
@@ -31,13 +29,11 @@ $taille-fonte-restant-min2: 0.6em;
   font-size: $taille-fonte-restant;
 }
 
-
 .desactive {
   background-color: #558585;
 }
 
 @media (max-height: 768px) {
-
   .valeur {
     font-size: $taille-fonte-min;
   }
@@ -45,11 +41,9 @@ $taille-fonte-restant-min2: 0.6em;
   .nb-restant {
     font-size: $taille-fonte-restant-min;
   }
-
 }
 
 @media (max-height: 600px) {
-
   .valeur {
     font-size: $taille-fonte-min2;
   }
@@ -57,5 +51,4 @@ $taille-fonte-restant-min2: 0.6em;
   .nb-restant {
     font-size: $taille-fonte-restant-min2;
   }
-
 }

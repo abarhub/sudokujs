@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 [Demo](https://abarhub.github.io/sudokujs/sudokujs/)
 
-![Screenshot](/wiki/exemple_sudoku.PNG?raw=true "Exemple Sudoku")
+![Screenshot](/wiki/exemple_sudoku.PNG?raw=true 'Exemple Sudoku')
 
 ## Development server
 

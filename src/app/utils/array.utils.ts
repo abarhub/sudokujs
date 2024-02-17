@@ -1,7 +1,6 @@
-import {RandomService} from '../service/random.service';
+import { RandomService } from '../service/random.service';
 
 export class ArrayUtils {
-
   /**
    * clone un tableau d'entier
    * @param tab le tableau a cloner
@@ -55,5 +54,4 @@ export class ArrayUtils {
     }
     return resultat;
   }
-
 }

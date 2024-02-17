@@ -1,15 +1,13 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GrilleService {
-
   valeurs: number[][];
   visible: boolean[][];
 
-  constructor() {
-  }
+  constructor() {}
 
   public initialisation(valeurs: number[][], visible: boolean[][]): void {
     this.valeurs = valeurs;
@@ -42,16 +40,20 @@ export class GrilleService {
     }
   }
 
-  private verifieCase(tableau: Array<Array<any>>, ligne: number, colonne: number): void {
+  private verifieCase(
+    tableau: Array<Array<any>>,
+    ligne: number,
+    colonne: number
+  ): void {
     if (this.isUndefined(tableau)) {
       console.log('tableau', tableau);
-      throw new Error('Le tableau n\'existe pas !');
+      throw new Error("Le tableau n'existe pas !");
     }
     if (this.isUndefined(tableau[ligne])) {
-      throw new Error('La ligne ' + ligne + ' n\'existe pas !');
+      throw new Error('La ligne ' + ligne + " n'existe pas !");
     }
     if (this.isUndefined(tableau[ligne][colonne])) {
-      throw new Error('La colonne ' + colonne + ' n\'existe pas !');
+      throw new Error('La colonne ' + colonne + " n'existe pas !");
     }
   }
 
@@ -60,7 +62,6 @@ export class GrilleService {
   }
 
   public estInitialise(): boolean {
-    return !this.isUndefined(this.valeurs) &&
-      !this.isUndefined(this.visible);
+    return !this.isUndefined(this.valeurs) && !this.isUndefined(this.visible);
   }
 }

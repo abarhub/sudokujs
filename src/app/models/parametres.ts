@@ -1,4 +1,4 @@
-import {NiveauDifficulteEnum} from './niveau-difficulte.enum';
+import { NiveauDifficulteEnum } from './niveau-difficulte.enum';
 
 export class Parametres {
   niveauDifficulte: NiveauDifficulteEnum = NiveauDifficulteEnum.FACILE;
