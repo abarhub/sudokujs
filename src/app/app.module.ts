@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GrilleComponent } from './component/grille/grille.component';
 import { SelectionChiffresComponent } from './component/selection-chiffres/selection-chiffres.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ToggleComponent } from './component/toggle/toggle.component';
 import { MenuComponent } from './component/menu/menu.component';
 
@@ -16,15 +16,10 @@ import { MenuComponent } from './component/menu/menu.component';
     GrilleComponent,
     SelectionChiffresComponent,
     ToggleComponent,
-    MenuComponent
+    MenuComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        FormsModule
-    ],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

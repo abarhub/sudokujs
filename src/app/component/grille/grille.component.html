@@ -1,22 +1,27 @@
 <div>
   <table class="table-bordered grille">
     <tr *ngFor="let item of [].constructor(9); let ligne = index">
-      <td *ngFor="let item2 of [].constructor(9); let colonne = index"
-          [ngClass]="{'non-modifiable': !estModifiable(ligne, colonne),
-          'modifiable': estModifiable(ligne, colonne),
+      <td
+        *ngFor="let item2 of [].constructor(9); let colonne = index"
+        [ngClass]="{
+          'non-modifiable': !estModifiable(ligne, colonne),
+          modifiable: estModifiable(ligne, colonne),
           'premier-bord': colonne % 3 === 0,
           'dernier-bord': colonne === 8,
           'premier-bord-haut': ligne % 3 === 0,
           'dernier-bord-bas': ligne === 8,
           'case-selectionnee': isCaseSelectionnee(ligne, colonne),
-          'ligne-colonne-selectionnee-modifiable': isLigneColonneSelectionnee(ligne, colonne)&&estModifiable(ligne, colonne),
-          'ligne-colonne-selectionnee-non-modifiable': isLigneColonneSelectionnee(ligne, colonne)&&!estModifiable(ligne, colonne),
+          'ligne-colonne-selectionnee-modifiable':
+            isLigneColonneSelectionnee(ligne, colonne) &&
+            estModifiable(ligne, colonne),
+          'ligne-colonne-selectionnee-non-modifiable':
+            isLigneColonneSelectionnee(ligne, colonne) &&
+            !estModifiable(ligne, colonne),
           'valeur-a-afficher': isValeurAfficher(ligne, colonne),
           'en-erreur': isEnErreur(ligne, colonne)
-          }"
-          (click)="definiChiffre(ligne, colonne)"
-      >
-        {{case(ligne, colonne)}}
+        }"
+        (click)="definiChiffre(ligne, colonne)">
+        {{ case(ligne, colonne) }}
       </td>
     </tr>
   </table>

@@ -1,16 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Grille} from '../../models/grille';
-import {GrilleUtils} from '../../utils/grille.utils';
-import {JeuxService} from '../../service/jeux.service';
-import {TypeEvenementEnum} from '../../models/type-evenement.enum';
+import { Component, Input, OnInit } from '@angular/core';
+import { Grille } from '../../models/grille';
+import { GrilleUtils } from '../../utils/grille.utils';
+import { JeuxService } from '../../service/jeux.service';
+import { TypeEvenementEnum } from '../../models/type-evenement.enum';
 
 @Component({
   selector: 'app-grille',
   templateUrl: './grille.component.html',
-  styleUrls: ['./grille.component.scss']
+  styleUrls: ['./grille.component.scss'],
 })
 export class GrilleComponent implements OnInit {
-
   grille: Grille;
   valeurSelectionnee: number | null = null;
   ligneSelectionnee: number | null = null;
@@ -21,8 +20,7 @@ export class GrilleComponent implements OnInit {
   @Input()
   remplissageAutoChiffre: boolean;
 
-  constructor(private jeuxService: JeuxService) {
-  }
+  constructor(private jeuxService: JeuxService) {}
 
   ngOnInit(): void {
     this.jeuxService.evenementGrille$.subscribe(event => {
@@ -35,16 +33,22 @@ export class GrilleComponent implements OnInit {
       } else if (event.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE) {
         if (event.selectionChiffre) {
           const derniereValeurSelectionnee = event.selectionChiffre.valeur;
-          if ((derniereValeurSelectionnee >= 1 && derniereValeurSelectionnee <= 9)
-            || derniereValeurSelectionnee === -1) {
+          if (
+            (derniereValeurSelectionnee >= 1 &&
+              derniereValeurSelectionnee <= 9) ||
+            derniereValeurSelectionnee === -1
+          ) {
             this.setSelection(derniereValeurSelectionnee);
           } else {
             this.setSelection(null);
           }
         }
-      } else if (event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR ||
-        event.typeEvenement === TypeEvenementEnum.CACHER_ERREUR) {
-        this.afficherErreur = event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR;
+      } else if (
+        event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR ||
+        event.typeEvenement === TypeEvenementEnum.CACHER_ERREUR
+      ) {
+        this.afficherErreur =
+          event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR;
       }
     });
   }
@@ -81,14 +85,27 @@ export class GrilleComponent implements OnInit {
   private setSelection(derniereValeurSelectionnee: number | null): void {
     this.valeurSelectionnee = derniereValeurSelectionnee;
     if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null) {
-      this.definiChiffre(this.ligneSelectionnee, this.colonneSelectionnee, true);
+      this.definiChiffre(
+        this.ligneSelectionnee,
+        this.colonneSelectionnee,
+        true
+      );
       this.ligneSelectionnee = null;
       this.colonneSelectionnee = null;
     }
   }
 
-  definiChiffre(ligne: number, colonne: number, forceValeur: boolean = false): void {
-    if (this.valeurSelectionnee && (this.remplissageAutoChiffre || forceValeur || this.valeurSelectionnee === -1)) {
+  definiChiffre(
+    ligne: number,
+    colonne: number,
+    forceValeur: boolean = false
+  ): void {
+    if (
+      this.valeurSelectionnee &&
+      (this.remplissageAutoChiffre ||
+        forceValeur ||
+        this.valeurSelectionnee === -1)
+    ) {
       if (this.estModifiable(ligne, colonne)) {
         if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
           this.grille.setValeur(ligne, colonne, this.valeurSelectionnee);
@@ -100,13 +117,21 @@ export class GrilleComponent implements OnInit {
         }
       }
     } else {
-      if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null &&
-        this.ligneSelectionnee === ligne && this.colonneSelectionnee === colonne) {
+      if (
+        this.ligneSelectionnee !== null &&
+        this.colonneSelectionnee !== null &&
+        this.ligneSelectionnee === ligne &&
+        this.colonneSelectionnee === colonne
+      ) {
         this.ligneSelectionnee = null;
         this.colonneSelectionnee = null;
         this.valeurAfficher = null;
-      } else if ((this.ligneSelectionnee !== null || this.colonneSelectionnee !== null) ||
-        (this.ligneSelectionnee !== ligne || this.colonneSelectionnee !== colonne)) {
+      } else if (
+        this.ligneSelectionnee !== null ||
+        this.colonneSelectionnee !== null ||
+        this.ligneSelectionnee !== ligne ||
+        this.colonneSelectionnee !== colonne
+      ) {
         this.ligneSelectionnee = ligne;
         this.colonneSelectionnee = colonne;
         if (this.grille.estVisible(ligne, colonne)) {
@@ -117,14 +142,29 @@ export class GrilleComponent implements OnInit {
   }
 
   isCaseSelectionnee(ligne: number, colonne: number): boolean {
-    return this.ligneSelectionnee && this.colonneSelectionnee && this.ligneSelectionnee === ligne && this.colonneSelectionnee === colonne;
+    return (
+      this.ligneSelectionnee &&
+      this.colonneSelectionnee &&
+      this.ligneSelectionnee === ligne &&
+      this.colonneSelectionnee === colonne
+    );
   }
 
   isLigneColonneSelectionnee(ligne: number, colonne: number): boolean {
     if (this.ligneSelectionnee !== null && this.colonneSelectionnee !== null) {
-      if (this.ligneSelectionnee === ligne || this.colonneSelectionnee === colonne) {
+      if (
+        this.ligneSelectionnee === ligne ||
+        this.colonneSelectionnee === colonne
+      ) {
         return true;
-      } else if (GrilleUtils.memeCarre(ligne, colonne, this.ligneSelectionnee, this.colonneSelectionnee)) {
+      } else if (
+        GrilleUtils.memeCarre(
+          ligne,
+          colonne,
+          this.ligneSelectionnee,
+          this.colonneSelectionnee
+        )
+      ) {
         return true;
       }
     }
@@ -137,15 +177,16 @@ export class GrilleComponent implements OnInit {
     } else {
       return false;
     }
-
   }
 
   isEnErreur(ligne: number, colonne: number): boolean {
     if (this.afficherErreur) {
-      return this.grille.getValeur(ligne, colonne) !== this.grille.getSolution(ligne, colonne);
+      return (
+        this.grille.getValeur(ligne, colonne) !==
+        this.grille.getSolution(ligne, colonne)
+      );
     } else {
       return false;
     }
   }
-
 }

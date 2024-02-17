@@ -1,23 +1,22 @@
-import {Injectable} from '@angular/core';
-import {Grille} from '../models/grille';
-import {ArrayUtils} from '../utils/array.utils';
-import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
-import {SolveBacktrackService} from './solve-backtrack.service';
-import {RandomService} from './random.service';
+import { Injectable } from '@angular/core';
+import { Grille } from '../models/grille';
+import { ArrayUtils } from '../utils/array.utils';
+import { NiveauDifficulteEnum } from '../models/niveau-difficulte.enum';
+import { SolveBacktrackService } from './solve-backtrack.service';
+import { RandomService } from './random.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CreationGrilleService {
-
   SUBSECTION_SIZE = 3;
 
-
-  constructor(private solveBacktrackService: SolveBacktrackService, private randomService: RandomService) {
-  }
+  constructor(
+    private solveBacktrackService: SolveBacktrackService,
+    private randomService: RandomService
+  ) {}
 
   nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
-
     // création de la grille vide
     const tab: number[][] = [];
     for (let ligne = 0; ligne < 9; ligne++) {
@@ -58,7 +57,6 @@ export class CreationGrilleService {
       caseSupprimee = ArrayUtils.cloneArrayNumber(tab);
       this.suppressionCases(caseSupprimee, nombreCase);
 
-
       const tmp = ArrayUtils.cloneArrayNumber(caseSupprimee);
       console.log('res debut', new Date());
       const res = this.solveBacktrackService.solutionUnique(tmp);
@@ -90,10 +88,12 @@ export class CreationGrilleService {
   }
 
   private calculCase(tab: number[][]): void {
-
     const listePositions: [number, number][] = this.listePositions();
     const valeursPossibles: Map<number, number[]> = new Map<number, number[]>();
-    const valeursPossiblesSelectionnee: Map<number, number> = new Map<number, number>();
+    const valeursPossiblesSelectionnee: Map<number, number> = new Map<
+      number,
+      number
+    >();
 
     for (let position = 0; position < listePositions.length; position++) {
       const val: [number, number] = listePositions[position];
@@ -131,7 +131,7 @@ export class CreationGrilleService {
           tab[ligne2][colonne2] = valeurs[0];
         }
       } else {
-        let valeurPosition;
+        let valeurPosition: number;
         if (valeursPossiblesSelectionnee.has(position)) {
           valeurPosition = valeursPossiblesSelectionnee.get(position) + 1;
         } else {
@@ -139,8 +139,8 @@ export class CreationGrilleService {
         }
         if (valeurPosition < valeurs.length) {
           valeursPossiblesSelectionnee.set(position, valeurPosition);
-          const val2 = valeursPossibles.get(position)[valeurPosition];
-          tab[ligne2][colonne2] = val2;
+          tab[ligne2][colonne2] =
+            valeursPossibles.get(position)[valeurPosition];
         } else {
           // on a parcouru toutes les valeurs
           retourArriere = true;
@@ -167,7 +167,11 @@ export class CreationGrilleService {
     return res;
   }
 
-  private calculValeursPossibles(tab: number[][], ligne: number, colonne: number): number[] {
+  private calculValeursPossibles(
+    tab: number[][],
+    ligne: number,
+    colonne: number
+  ): number[] {
     const valeursPossibles = new Set<number>();
     for (let i = 1; i <= 9; i++) {
       valeursPossibles.add(i);
@@ -190,7 +194,10 @@ export class CreationGrilleService {
     let subsectionRowStart: number = 0;
     if (ligne < this.SUBSECTION_SIZE) {
       subsectionRowStart = 0;
-    } else if (ligne >= this.SUBSECTION_SIZE && ligne < this.SUBSECTION_SIZE * 2) {
+    } else if (
+      ligne >= this.SUBSECTION_SIZE &&
+      ligne < this.SUBSECTION_SIZE * 2
+    ) {
       subsectionRowStart = this.SUBSECTION_SIZE;
     } else if (ligne >= this.SUBSECTION_SIZE * 2) {
       subsectionRowStart = this.SUBSECTION_SIZE * 2;
@@ -200,15 +207,23 @@ export class CreationGrilleService {
     let subsectionColumnStart: number = 0;
     if (colonne < this.SUBSECTION_SIZE) {
       subsectionColumnStart = 0;
-    } else if (colonne >= this.SUBSECTION_SIZE && colonne < this.SUBSECTION_SIZE * 2) {
+    } else if (
+      colonne >= this.SUBSECTION_SIZE &&
+      colonne < this.SUBSECTION_SIZE * 2
+    ) {
       subsectionColumnStart = this.SUBSECTION_SIZE;
     } else {
       subsectionColumnStart = this.SUBSECTION_SIZE * 2;
     }
-    const subsectionColumnEnd: number = subsectionColumnStart + this.SUBSECTION_SIZE;
+    const subsectionColumnEnd: number =
+      subsectionColumnStart + this.SUBSECTION_SIZE;
 
     for (let r: number = subsectionRowStart; r < subsectionRowEnd; r++) {
-      for (let c: number = subsectionColumnStart; c < subsectionColumnEnd; c++) {
+      for (
+        let c: number = subsectionColumnStart;
+        c < subsectionColumnEnd;
+        c++
+      ) {
         const val = tab[r][c];
         if (val > 0 && r !== ligne && c !== colonne) {
           valeursPossibles.delete(val);
@@ -216,8 +231,7 @@ export class CreationGrilleService {
       }
     }
 
-    return Array.from(valeursPossibles.values())
-      .sort((n1, n2) => n1 - n2);
+    return Array.from(valeursPossibles.values()).sort((n1, n2) => n1 - n2);
   }
 
   afficheTab(tab: number[][]): string {
@@ -236,7 +250,8 @@ export class CreationGrilleService {
     for (let i = 0; i < nombreCaseSupprimee; i++) {
       const min = 0;
       const max = listePositions.length - 1;
-      const caseASupprimer: number = Math.floor(Math.random() * (max - min + 1)) + min;
+      const caseASupprimer: number =
+        Math.floor(Math.random() * (max - min + 1)) + min;
       const pos = listePositions[caseASupprimer];
       const ligne = pos[0];
       const colonne = pos[1];
@@ -252,5 +267,4 @@ export class CreationGrilleService {
       }
     }
   }
-
 }

@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Grille} from '../models/grille';
-import {ArrayUtils} from '../utils/array.utils';
+import { Injectable } from '@angular/core';
+import { Grille } from '../models/grille';
+import { ArrayUtils } from '../utils/array.utils';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SolveBacktrackService {
-
   BOARD_START_INDEX = 0;
   BOARD_SIZE = 9;
   NO_VALUE = 0;
@@ -14,9 +13,7 @@ export class SolveBacktrackService {
   MAX_VALUE = 9;
   SUBSECTION_SIZE = 3;
 
-  public resolution(grille: Grille): void {
-
-  }
+  public resolution(grille: Grille): void {}
 
   public existeSolution(board: number[][]): boolean {
     return this.solve(board, 1) > 0;
@@ -32,17 +29,37 @@ export class SolveBacktrackService {
     return listeSolutions;
   }
 
-  private solve(board: number[][], maxSolution: number, listeSolutions: number[][][] | null = null): number {
+  private solve(
+    board: number[][],
+    maxSolution: number,
+    listeSolutions: number[][][] | null = null
+  ): number {
     let nbSolution: number = 0;
-    for (let row: number = this.BOARD_START_INDEX; row < this.BOARD_SIZE; row++) {
-      for (let column: number = this.BOARD_START_INDEX; column < this.BOARD_SIZE; column++) {
+    for (
+      let row: number = this.BOARD_START_INDEX;
+      row < this.BOARD_SIZE;
+      row++
+    ) {
+      for (
+        let column: number = this.BOARD_START_INDEX;
+        column < this.BOARD_SIZE;
+        column++
+      ) {
         if (board[row][column] === this.NO_VALUE) {
           for (let k: number = this.MIN_VALUE; k <= this.MAX_VALUE; k++) {
             board[row][column] = k;
             if (this.isValid(board, row, column)) {
-              const nbSousSolution = this.solve(board, maxSolution, listeSolutions);
+              const nbSousSolution = this.solve(
+                board,
+                maxSolution,
+                listeSolutions
+              );
               nbSolution += nbSousSolution;
-              if (nbSolution > 0 && maxSolution > 0 && nbSolution <= maxSolution) {
+              if (
+                nbSolution > 0 &&
+                maxSolution > 0 &&
+                nbSolution <= maxSolution
+              ) {
                 return nbSolution;
               }
             }
@@ -60,14 +77,20 @@ export class SolveBacktrackService {
   }
 
   private isValid(board: number[][], row: number, column: number): boolean {
-    return (this.rowConstraint(board, row)
-      && this.columnConstraint(board, column)
-      && this.subsectionConstraint(board, row, column));
+    return (
+      this.rowConstraint(board, row) &&
+      this.columnConstraint(board, column) &&
+      this.subsectionConstraint(board, row, column)
+    );
   }
 
   private rowConstraint(board: number[][], row: number): boolean {
     const constraint: boolean[] = this.createArrayBoolean(this.BOARD_SIZE);
-    for (let column = this.BOARD_START_INDEX; column < this.BOARD_SIZE; column++) {
+    for (
+      let column = this.BOARD_START_INDEX;
+      column < this.BOARD_SIZE;
+      column++
+    ) {
       if (!this.checkConstraint(board, row, constraint, column)) {
         return false;
       }
@@ -85,7 +108,11 @@ export class SolveBacktrackService {
     return true;
   }
 
-  private subsectionConstraint(board: number[][], row: number, column: number): boolean {
+  private subsectionConstraint(
+    board: number[][],
+    row: number,
+    column: number
+  ): boolean {
     const constraint: boolean[] = this.createArrayBoolean(this.BOARD_SIZE);
     let subsectionRowStart: number = 0;
     if (row < this.SUBSECTION_SIZE) {
@@ -100,15 +127,23 @@ export class SolveBacktrackService {
     let subsectionColumnStart: number = 0;
     if (column < this.SUBSECTION_SIZE) {
       subsectionColumnStart = 0;
-    } else if (column >= this.SUBSECTION_SIZE && column < this.SUBSECTION_SIZE * 2) {
+    } else if (
+      column >= this.SUBSECTION_SIZE &&
+      column < this.SUBSECTION_SIZE * 2
+    ) {
       subsectionColumnStart = this.SUBSECTION_SIZE;
     } else {
       subsectionColumnStart = this.SUBSECTION_SIZE * 2;
     }
-    const subsectionColumnEnd: number = subsectionColumnStart + this.SUBSECTION_SIZE;
+    const subsectionColumnEnd: number =
+      subsectionColumnStart + this.SUBSECTION_SIZE;
 
     for (let r: number = subsectionRowStart; r < subsectionRowEnd; r++) {
-      for (let c: number = subsectionColumnStart; c < subsectionColumnEnd; c++) {
+      for (
+        let c: number = subsectionColumnStart;
+        c < subsectionColumnEnd;
+        c++
+      ) {
         if (!this.checkConstraint(board, r, constraint, c)) {
           return false;
         }
@@ -121,7 +156,8 @@ export class SolveBacktrackService {
     board: number[][],
     row: number,
     constraint: boolean[],
-    column: number): boolean {
+    column: number
+  ): boolean {
     if (board[row][column] !== this.NO_VALUE) {
       if (!constraint[board[row][column] - 1]) {
         constraint[board[row][column] - 1] = true;

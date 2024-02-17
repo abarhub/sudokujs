@@ -1,6 +1,8 @@
 <div class="d-flex flex-column">
   <div class="p-2">
-    <button (click)="creationGrille()" class="btn btn-primary m-2">Nouvelle grille</button>
+    <button (click)="creationGrille()" class="btn btn-primary m-2">
+      Nouvelle grille
+    </button>
     <select [(ngModel)]="parametres.niveauDifficulte">
       <option [ngValue]="NiveauDifficulteEnum.FACILE">Facile</option>
       <option [ngValue]="NiveauDifficulteEnum.MOYEN">Moyen</option>
@@ -8,15 +10,22 @@
     </select>
   </div>
   <div class="p-2">
-    <p>Selection: {{derniereValeurSelectionnee}}</p>
-    <p>Nombre de cases vide: {{nombreCasesVides}}</p>
-    <p>Nombre de cases en erreur: {{nombreErreurs}}</p>
-    <p><toggle-button (valeurSelectionnee)="afficheErreur($event)"></toggle-button> Afficher Erreurs</p>
-    <p><toggle-button (valeurSelectionnee)="remplissageAutoChiffres($event)" [valeur]="parametres.remplissageChiffres"></toggle-button> Remplissage automatique des chiffres</p>
+    <p>Selection: {{ derniereValeurSelectionnee }}</p>
+    <p>Nombre de cases vide: {{ nombreCasesVides }}</p>
+    <p>Nombre de cases en erreur: {{ nombreErreurs }}</p>
+    <p>
+      <toggle-button
+        (valeurSelectionnee)="afficheErreur($event)"></toggle-button>
+      Afficher Erreurs
+    </p>
+    <p>
+      <toggle-button
+        (valeurSelectionnee)="remplissageAutoChiffres($event)"
+        [valeur]="parametres.remplissageChiffres"></toggle-button>
+      Remplissage automatique des chiffres
+    </p>
   </div>
-  <div class="p-2" *ngIf="nombreCasesVides===0">
-    Terminé
-  </div>
+  <div class="p-2" *ngIf="nombreCasesVides === 0">Terminé</div>
   <div>
     <button (click)="sauver()" class="btn btn-primary m-2">Sauver</button>
     <button (click)="charger()" class="btn btn-primary m-2">Charger</button>

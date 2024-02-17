@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {SolveBacktrackService} from './solve-backtrack.service';
+import { SolveBacktrackService } from './solve-backtrack.service';
 
 describe('SolveBacktrack', () => {
   let solveBacktrackService: SolveBacktrackService;
@@ -23,7 +23,7 @@ describe('SolveBacktrack', () => {
     [8, 4, 0, 3, 0, 0, 0, 0, 5],
     [0, 0, 0, 0, 0, 3, 0, 6, 0],
     [9, 8, 0, 2, 6, 1, 5, 0, 4],
-    [0, 0, 0, 0, 0, 8, 9, 0, 3]
+    [0, 0, 0, 0, 0, 8, 9, 0, 3],
   ];
 
   const sudokuSimple1Solution: number[][] = [
@@ -35,7 +35,7 @@ describe('SolveBacktrack', () => {
     [8, 4, 6, 3, 1, 2, 7, 9, 5],
     [1, 5, 7, 4, 9, 3, 8, 6, 2],
     [9, 8, 3, 2, 6, 1, 5, 7, 4],
-    [4, 6, 2, 5, 7, 8, 9, 1, 3]
+    [4, 6, 2, 5, 7, 8, 9, 1, 3],
   ];
 
   const sudokuSimple2: number[][] = [
@@ -47,7 +47,7 @@ describe('SolveBacktrack', () => {
     [0, 0, 0, 9, 1, 7, 0, 0, 0],
     [0, 9, 0, 2, 0, 6, 3, 1, 0],
     [0, 0, 0, 0, 0, 0, 0, 2, 0],
-    [3, 6, 2, 1, 0, 0, 5, 0, 7]
+    [3, 6, 2, 1, 0, 0, 5, 0, 7],
   ];
 
   const sudokuSimple2Solution: number[][] = [
@@ -59,7 +59,7 @@ describe('SolveBacktrack', () => {
     [2, 5, 8, 9, 1, 7, 6, 3, 4],
     [7, 9, 5, 2, 4, 6, 3, 1, 8],
     [4, 8, 1, 7, 3, 5, 9, 2, 6],
-    [3, 6, 2, 1, 9, 8, 5, 4, 7]
+    [3, 6, 2, 1, 9, 8, 5, 4, 7],
   ];
 
   /* sudoku moyen */
@@ -73,7 +73,7 @@ describe('SolveBacktrack', () => {
     [6, 5, 7, 0, 0, 0, 0, 8, 0],
     [0, 0, 6, 0, 2, 0, 0, 0, 0],
     [0, 9, 0, 7, 0, 0, 3, 1, 0],
-    [0, 0, 5, 0, 3, 9, 0, 0, 0]
+    [0, 0, 5, 0, 3, 9, 0, 0, 0],
   ];
 
   const sudokuMoyen1Solution: number[][] = [
@@ -85,60 +85,48 @@ describe('SolveBacktrack', () => {
     [6, 5, 7, 9, 1, 3, 4, 8, 2],
     [7, 3, 6, 5, 2, 1, 9, 4, 8],
     [2, 9, 8, 7, 6, 4, 3, 1, 5],
-    [4, 1, 5, 8, 3, 9, 2, 6, 7]
+    [4, 1, 5, 8, 3, 9, 2, 6, 7],
   ];
 
   it('existe une solution', () => {
-
     const tab: number[][] = sudokuSimple1;
     const res = solveBacktrackService.existeSolution(tab);
     expect(res).toBeTrue();
-
   });
 
   it('résolution sudoku0 simple 1', () => {
-
     const tab: number[][] = sudokuSimple1;
 
     const tabSolution: number[][] = sudokuSimple1Solution;
 
     const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
-
   });
 
   it('résolution sudoku simple 2', () => {
-
     const tab: number[][] = sudokuSimple2;
 
     const tabSolution: number[][] = sudokuSimple2Solution;
 
     const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
-
   });
 
   it('résolution sudoku moyen 1', () => {
-
     const tab: number[][] = sudokuMoyen1;
 
     const tabSolution: number[][] = sudokuMoyen1Solution;
 
     const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
-
   });
 
   it('résolution sudoku moyen 2', () => {
-
     const tab: number[][] = sudokuMoyen1;
 
     const tabSolution: number[][] = sudokuMoyen1Solution;
 
     const res = solveBacktrackService.solution(tab);
     expect(res).toEqual([tabSolution]);
-
   });
-
 });
-

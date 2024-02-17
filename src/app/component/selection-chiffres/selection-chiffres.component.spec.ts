@@ -8,9 +8,8 @@ describe('SelectionChiffresComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectionChiffresComponent ]
-    })
-    .compileComponents();
+      declarations: [SelectionChiffresComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

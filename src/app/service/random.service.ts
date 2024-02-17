@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RandomService {
-
   private a = 25214903917;
   private c = 11;
   private modulus = Math.pow(2, 48);
   private nextSeed: number | null = null;
 
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Défini le seed du generateur de nombre aléatoire
@@ -50,5 +48,4 @@ export class RandomService {
       return this.nextSeed / this.modulus;
     }
   }
-
 }

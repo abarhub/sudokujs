@@ -1,15 +1,19 @@
-import {ArrayUtils} from '../utils/array.utils';
-import {Observable, Subject} from 'rxjs';
+import { ArrayUtils } from '../utils/array.utils';
+import { Observable, Subject } from 'rxjs';
 
 export class Grille {
-
   private solution: number[][];
   private valeurs: number[][];
   private visible: boolean[][];
   private modifiable: boolean[][];
   private miseAJour: Subject<void>;
 
-  constructor(solution: number[][], visible: boolean[][], modifiable: boolean[][], valeur?: number[][]) {
+  constructor(
+    solution: number[][],
+    visible: boolean[][],
+    modifiable: boolean[][],
+    valeur?: number[][]
+  ) {
     this.solution = ArrayUtils.cloneArrayNumber(solution);
     this.visible = ArrayUtils.cloneArrayBoolean(visible);
     this.modifiable = ArrayUtils.cloneArrayBoolean(modifiable);
@@ -68,7 +72,9 @@ export class Grille {
     this.verifieCase(this.valeurs, ligne, colonne);
     this.verifieValeur(valeur);
     if (!this.estModifiable(ligne, colonne)) {
-      throw new Error('Impossible de modifier la case ' + ligne + '/' + colonne + ' !');
+      throw new Error(
+        'Impossible de modifier la case ' + ligne + '/' + colonne + ' !'
+      );
     } else {
       this.valeurs[ligne][colonne] = valeur;
       this.miseAJour.next();
@@ -98,16 +104,20 @@ export class Grille {
     }
   }
 
-  private verifieCase(tableau: Array<Array<any>>, ligne: number, colonne: number): void {
+  private verifieCase(
+    tableau: Array<Array<any>>,
+    ligne: number,
+    colonne: number
+  ): void {
     if (this.isUndefined(tableau)) {
       console.log('tableau', tableau);
-      throw new Error('Le tableau n\'existe pas !');
+      throw new Error("Le tableau n'existe pas !");
     }
     if (this.isUndefined(tableau[ligne])) {
-      throw new Error('La ligne ' + ligne + ' n\'existe pas !');
+      throw new Error('La ligne ' + ligne + " n'existe pas !");
     }
     if (this.isUndefined(tableau[ligne][colonne])) {
-      throw new Error('La colonne ' + colonne + ' n\'existe pas !');
+      throw new Error('La colonne ' + colonne + " n'existe pas !");
     }
   }
 
@@ -122,9 +132,11 @@ export class Grille {
   }
 
   public estInitialise(): boolean {
-    return !this.isUndefined(this.valeurs) &&
+    return (
+      !this.isUndefined(this.valeurs) &&
       !this.isUndefined(this.visible) &&
-      !this.isUndefined(this.modifiable);
+      !this.isUndefined(this.modifiable)
+    );
   }
 
   public nombreCasesVides(): number {
@@ -160,7 +172,12 @@ export class Grille {
   }
 
   public clone(): Grille {
-    return new Grille(this.solution, this.visible, this.modifiable, this.valeurs);
+    return new Grille(
+      this.solution,
+      this.visible,
+      this.modifiable,
+      this.valeurs
+    );
   }
 
   public toString(): string {

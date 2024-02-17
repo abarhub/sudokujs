@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {MenuComponent} from './menu.component';
-import {FormsModule} from '@angular/forms';
-import {ToggleComponent} from '../toggle/toggle.component';
+import { MenuComponent } from './menu.component';
+import { FormsModule } from '@angular/forms';
+import { ToggleComponent } from '../toggle/toggle.component';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -10,15 +10,9 @@ describe('MenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [
-        MenuComponent,
-        ToggleComponent
-      ]
-    })
-      .compileComponents();
+      imports: [FormsModule],
+      declarations: [MenuComponent, ToggleComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

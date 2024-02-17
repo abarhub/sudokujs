@@ -1,17 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SelectionChiffre} from '../../models/selection-chiffre';
-import {JeuxService} from '../../service/jeux.service';
-import {Grille} from '../../models/grille';
-import {TypeEvenementEnum} from '../../models/type-evenement.enum';
-import {EvenementGrille} from '../../models/evenement-grille';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SelectionChiffre } from '../../models/selection-chiffre';
+import { JeuxService } from '../../service/jeux.service';
+import { Grille } from '../../models/grille';
+import { TypeEvenementEnum } from '../../models/type-evenement.enum';
+import { EvenementGrille } from '../../models/evenement-grille';
 
 @Component({
   selector: 'app-selection-chiffres',
   templateUrl: './selection-chiffres.component.html',
-  styleUrls: ['./selection-chiffres.component.scss']
+  styleUrls: ['./selection-chiffres.component.scss'],
 })
 export class SelectionChiffresComponent implements OnInit {
-
   chiffreSelectionnee: number | null = null;
   nbRestant: number[];
   listeChiffre: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -25,9 +24,11 @@ export class SelectionChiffresComponent implements OnInit {
 
   ngOnInit(): void {
     this.jeuxService.evenementGrille$.subscribe(evenement => {
-      if (evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE ||
+      if (
+        evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE ||
         evenement.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE ||
-        evenement.typeEvenement === TypeEvenementEnum.MODIFICATION_GRILLE) {
+        evenement.typeEvenement === TypeEvenementEnum.MODIFICATION_GRILLE
+      ) {
         if (evenement.grille) {
           this.calculNombreRestant(evenement.grille);
         }

@@ -1,8 +1,6 @@
-import {GrilleUtils} from './grille.utils';
-
+import { GrilleUtils } from './grille.utils';
 
 describe('GrilleUtils', () => {
-
   it('meme carre', () => {
     const res = GrilleUtils.memeCarre(1, 1, 1, 1);
     expect(res).toBeTruthy();
@@ -29,14 +27,13 @@ describe('GrilleUtils', () => {
   });
 
   it('meme carre complet', () => {
-
     const listeLimite = [
       [0, 3, 0, 3],
       [0, 3, 3, 6],
       [0, 3, 6, 9],
       [3, 6, 0, 3],
       [3, 6, 3, 6],
-      [3, 6, 6, 9]
+      [3, 6, 6, 9],
     ];
 
     for (const limite of listeLimite) {
@@ -47,14 +44,22 @@ describe('GrilleUtils', () => {
       for (let ligne1 = debutLigne; ligne1 < maxLigne; ligne1++) {
         for (let colonne1 = debutColonne; colonne1 < maxColonne; colonne1++) {
           for (let ligne2 = debutLigne; ligne2 < maxLigne; ligne2++) {
-            for (let colonne2 = debutColonne; colonne2 < maxColonne; colonne2++) {
-              const res = GrilleUtils.memeCarre(ligne1, colonne1, ligne2, colonne2);
+            for (
+              let colonne2 = debutColonne;
+              colonne2 < maxColonne;
+              colonne2++
+            ) {
+              const res = GrilleUtils.memeCarre(
+                ligne1,
+                colonne1,
+                ligne2,
+                colonne2
+              );
               expect(res).toBeTruthy();
             }
           }
         }
       }
     }
-
   });
 });
