@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Grille} from '../models/grille';
 import {ArrayUtils} from '../utils/array.utils';
 import {NiveauDifficulteEnum} from '../models/niveau-difficulte.enum';
-import {RandomUtils} from '../utils/random.utils';
 import {SolveBacktrackService} from './solve-backtrack.service';
+import {RandomService} from './random.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class CreationGrilleService {
   SUBSECTION_SIZE = 3;
 
 
-  constructor(private solveBacktrackService: SolveBacktrackService) {
+  constructor(private solveBacktrackService: SolveBacktrackService, private randomService: RandomService) {
   }
 
   nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
@@ -43,15 +43,15 @@ export class CreationGrilleService {
       switch (niveauDifficulte) {
         case NiveauDifficulteEnum.FACILE:
           // 40 à 45
-          nombreCase = RandomUtils.getRandomInt(40, 45);
+          nombreCase = this.randomService.getRandomInt(40, 45);
           break;
         case NiveauDifficulteEnum.MOYEN:
           // 46 à 49
-          nombreCase = RandomUtils.getRandomInt(46, 49);
+          nombreCase = this.randomService.getRandomInt(46, 49);
           break;
         case NiveauDifficulteEnum.DIFFICILE:
           // 50 à 53 (Plus de 54 à 58)
-          nombreCase = RandomUtils.getRandomInt(50, 53);
+          nombreCase = this.randomService.getRandomInt(50, 53);
           break;
       }
       console.log('nomCaseVide', nombreCase);
@@ -109,7 +109,7 @@ export class CreationGrilleService {
         valeurs = valeursPossibles.get(position);
       } else {
         valeurs = this.calculValeursPossibles(tab, ligne2, colonne2);
-        valeurs = ArrayUtils.shuttle(valeurs);
+        valeurs = ArrayUtils.shuttle(valeurs, this.randomService);
         recalcul = true;
         valeursPossibles.set(position, valeurs);
       }

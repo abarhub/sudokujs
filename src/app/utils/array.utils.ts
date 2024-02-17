@@ -1,4 +1,5 @@
 import {RandomUtils} from './random.utils';
+import {RandomService} from '../service/random.service';
 
 export class ArrayUtils {
 
@@ -39,15 +40,16 @@ export class ArrayUtils {
   /**
    * retourne une copie du tableau avec les elements mélangés
    * @param tab le tableau à mélanger. Il n'est pas modifié
+   * @param randomService le service qui génère les nombres aléatoires
    */
-  public static shuttle(tab: number[]): number[] {
+  public static shuttle(tab: number[], randomService: RandomService): number[] {
     const resultat: number[] = [];
     const temporaire: number[] = [];
     for (const item of tab) {
       temporaire.push(item);
     }
     while (temporaire.length > 0) {
-      const position = RandomUtils.getRandomNumber(temporaire.length);
+      const position = randomService.getRandomNumber(temporaire.length);
       const val = temporaire[position];
       resultat.push(val);
       temporaire.splice(position, 1);
