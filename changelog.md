@@ -1,3 +1,8 @@
+# version 1.1.0 (17/02/2024)
+
+- mise à jour vers angular 17.2.1
+- ajout de eslint et prettier
+
 # version 1.0.0 (30/12/2023)
 
 - mise à jour vers angular 17.0.8
