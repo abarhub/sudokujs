@@ -1,4 +1,3 @@
-import {RandomUtils} from './random.utils';
 import {RandomService} from '../service/random.service';
 
 export class ArrayUtils {
