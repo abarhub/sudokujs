@@ -1,4 +1,4 @@
-# version 1.1.0 (17/02/2024)
+# version 1.1.0 (XX/02/2024)
 
 - mise à jour vers angular 17.2.1
 - ajout de eslint et prettier
