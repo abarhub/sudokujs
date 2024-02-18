@@ -79,7 +79,6 @@ export class SelectionChiffresComponent implements OnInit, OnDestroy {
     for (let i = 0; i < 9; i++) {
       this.nbRestant[i] = Math.max(9 - tab[i], 0);
     }
-    console.log('tab', tab, 'nbRestant', this.nbRestant);
   }
 
   nombreRestant(chiffre: number): number {
