@@ -13,8 +13,6 @@ export class SolveBacktrackService {
   MAX_VALUE = 9;
   SUBSECTION_SIZE = 3;
 
-  public resolution(grille: Grille): void {}
-
   public existeSolution(board: number[][]): boolean {
     return this.solve(board, 1) > 0;
   }
