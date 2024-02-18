@@ -1,6 +1,5 @@
 import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { JeuxService } from '../../service/jeux.service';
-import { CreationGrilleService } from '../../service/creation-grille.service';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { NiveauDifficulteEnum } from '../../models/niveau-difficulte.enum';
 import { TypeEvenementEnum } from '../../models/type-evenement.enum';
@@ -27,7 +26,6 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
 
   constructor(
     private jeuxService: JeuxService,
-    private creationGrilleService: CreationGrilleService,
     private localStorageService: LocalStorageService
   ) {}
 
@@ -35,7 +33,6 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
     const param = this.localStorageService.chargerParametres();
     if (param) {
       this.parametres = param;
-      console.log('parametreCharge', this.parametres);
     }
 
     let grille: Grille | null = null;
@@ -67,19 +64,21 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngOnInit(): void {
-    this.jeuxService.evenementGrille$.subscribe(evenement => {
-      if (
-        evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE ||
-        evenement.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE ||
-        evenement.typeEvenement === TypeEvenementEnum.MODIFICATION_GRILLE
-      ) {
-        if (evenement.grille) {
-          this.grille = evenement.grille;
-          this.sauveGrille();
-          this.miseAJourCompteurs();
+    this.jeuxService.evenementGrille$
+      .pipe(takeUntil(this.isOver$))
+      .subscribe(evenement => {
+        if (
+          evenement.typeEvenement === TypeEvenementEnum.CREATION_GRILLE ||
+          evenement.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE ||
+          evenement.typeEvenement === TypeEvenementEnum.MODIFICATION_GRILLE
+        ) {
+          if (evenement.grille) {
+            this.grille = evenement.grille;
+            this.sauveGrille();
+            this.miseAJourCompteurs();
+          }
         }
-      }
-    });
+      });
   }
 
   ngOnDestroy(): void {
@@ -93,7 +92,6 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   creationGrille(): void {
-    console.log('difficulte', this.parametres.niveauDifficulte);
     const grille = this.jeuxService.nouvelleGrille(
       this.parametres.niveauDifficulte
     );
@@ -113,7 +111,6 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   charger(): void {
     const grille = this.localStorageService.chargerGrille();
     if (grille) {
-      console.log('res', grille);
       this.jeuxService.chargerGrille(grille);
       grille
         .miseAjour()

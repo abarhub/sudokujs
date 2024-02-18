@@ -1,21 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Grille } from '../../models/grille';
 import { GrilleUtils } from '../../utils/grille.utils';
 import { JeuxService } from '../../service/jeux.service';
 import { TypeEvenementEnum } from '../../models/type-evenement.enum';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-grille',
   templateUrl: './grille.component.html',
   styleUrls: ['./grille.component.scss'],
 })
-export class GrilleComponent implements OnInit {
+export class GrilleComponent implements OnInit, OnDestroy {
   grille: Grille;
   valeurSelectionnee: number | null = null;
   ligneSelectionnee: number | null = null;
   colonneSelectionnee: number | null = null;
   valeurAfficher: number | null = null;
   afficherErreur = false;
+  over$ = new Subject<void>();
 
   @Input()
   remplissageAutoChiffre: boolean;
@@ -23,34 +26,41 @@ export class GrilleComponent implements OnInit {
   constructor(private jeuxService: JeuxService) {}
 
   ngOnInit(): void {
-    this.jeuxService.evenementGrille$.subscribe(event => {
-      if (event.typeEvenement === TypeEvenementEnum.CREATION_GRILLE) {
-        this.grille = event.grille;
-        this.valeurSelectionnee = null;
-        this.ligneSelectionnee = null;
-        this.colonneSelectionnee = null;
-        this.valeurAfficher = null;
-      } else if (event.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE) {
-        if (event.selectionChiffre) {
-          const derniereValeurSelectionnee = event.selectionChiffre.valeur;
-          if (
-            (derniereValeurSelectionnee >= 1 &&
-              derniereValeurSelectionnee <= 9) ||
-            derniereValeurSelectionnee === -1
-          ) {
-            this.setSelection(derniereValeurSelectionnee);
-          } else {
-            this.setSelection(null);
+    this.jeuxService.evenementGrille$
+      .pipe(takeUntil(this.over$))
+      .subscribe(event => {
+        if (event.typeEvenement === TypeEvenementEnum.CREATION_GRILLE) {
+          this.grille = event.grille;
+          this.valeurSelectionnee = null;
+          this.ligneSelectionnee = null;
+          this.colonneSelectionnee = null;
+          this.valeurAfficher = null;
+        } else if (event.typeEvenement === TypeEvenementEnum.CHOIX_CHIFFRE) {
+          if (event.selectionChiffre) {
+            const derniereValeurSelectionnee = event.selectionChiffre.valeur;
+            if (
+              (derniereValeurSelectionnee >= 1 &&
+                derniereValeurSelectionnee <= 9) ||
+              derniereValeurSelectionnee === -1
+            ) {
+              this.setSelection(derniereValeurSelectionnee);
+            } else {
+              this.setSelection(null);
+            }
           }
+        } else if (
+          event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR ||
+          event.typeEvenement === TypeEvenementEnum.CACHER_ERREUR
+        ) {
+          this.afficherErreur =
+            event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR;
         }
-      } else if (
-        event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR ||
-        event.typeEvenement === TypeEvenementEnum.CACHER_ERREUR
-      ) {
-        this.afficherErreur =
-          event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR;
-      }
-    });
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.over$.next();
+    this.over$.complete();
   }
 
   case(ligne: number, colonne: number): string {

@@ -26,12 +26,8 @@ export class CreationGrilleService {
       }
     }
 
-    console.log('tab vide=', tab);
-
     // génération des numéros
     this.calculCase(tab);
-
-    console.log('tab=', tab);
 
     let trouve = false;
     let nbTentative = 1;
@@ -53,14 +49,11 @@ export class CreationGrilleService {
           nombreCase = this.randomService.getRandomInt(50, 53);
           break;
       }
-      console.log('nomCaseVide', nombreCase);
       caseSupprimee = ArrayUtils.cloneArrayNumber(tab);
       this.suppressionCases(caseSupprimee, nombreCase);
 
       const tmp = ArrayUtils.cloneArrayNumber(caseSupprimee);
-      console.log('res debut', new Date());
       const res = this.solveBacktrackService.solutionUnique(tmp);
-      console.log('res', res, new Date());
 
       if (res) {
         trouve = true;
@@ -101,19 +94,14 @@ export class CreationGrilleService {
       const colonne2 = val[1];
       const valeurActuelle = tab[ligne2][colonne2];
       let retourArriere = false;
-      // console.log('position', position, ligne2, colonne2);
-      // console.log('tab', tab, this.afficheTab(tab));
       let valeurs: number[];
-      let recalcul = false;
       if (valeursPossibles.has(position)) {
         valeurs = valeursPossibles.get(position);
       } else {
         valeurs = this.calculValeursPossibles(tab, ligne2, colonne2);
         valeurs = ArrayUtils.shuttle(valeurs, this.randomService);
-        recalcul = true;
         valeursPossibles.set(position, valeurs);
       }
-      // console.log('valeurs', valeurs);
       if (valeurs.length === 0) {
         if (position >= listePositions.length) {
           // pas de solution
@@ -186,7 +174,7 @@ export class CreationGrilleService {
 
     for (let i = 0; i < 9; i++) {
       const val = tab[ligne][i];
-      if (val > 0 && i != colonne) {
+      if (val > 0 && i !== colonne) {
         valeursPossibles.delete(val);
       }
     }
@@ -204,7 +192,7 @@ export class CreationGrilleService {
     }
     const subsectionRowEnd: number = subsectionRowStart + this.SUBSECTION_SIZE;
 
-    let subsectionColumnStart: number = 0;
+    let subsectionColumnStart: number;
     if (colonne < this.SUBSECTION_SIZE) {
       subsectionColumnStart = 0;
     } else if (
