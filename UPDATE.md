@@ -48,6 +48,19 @@ Si cela ne fonctionne pas, il faut faire :
 ng update @angular-eslint/schematics --force
 ```
 
+- Monté de version de prettier
+  La documentation de la mise à jour est [ici](https://prettier.io/docs/en/install.html)
+
+```shell
+npm install --save-dev --save-exact prettier
+```
+
+Si cela ne fonctionne pas, il faut faire :
+
+```shell
+npm install --save-dev --save-exact prettier --force
+```
+
 - Analyse des problèmes de sécurité
   Pour analyser les problèmes de sécurité, il faut executer :
 
