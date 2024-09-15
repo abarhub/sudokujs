@@ -35,6 +35,32 @@ npm i bootstrap@XXX @popperjs/core@XXX
 ng update @compodoc/compodoc
 ```
 
+- Monté de version de es lint
+  La documentation de la mise à jour est [ici](https://github.com/angular-eslint/angular-eslint)
+
+```shell
+ng update @angular-eslint/schematics
+```
+
+Si cela ne fonctionne pas, il faut faire :
+
+```shell
+ng update @angular-eslint/schematics --force
+```
+
+- Monté de version de prettier
+  La documentation de la mise à jour est [ici](https://prettier.io/docs/en/install.html)
+
+```shell
+npm install --save-dev --save-exact prettier
+```
+
+Si cela ne fonctionne pas, il faut faire :
+
+```shell
+npm install --save-dev --save-exact prettier --force
+```
+
 - Analyse des problèmes de sécurité
   Pour analyser les problèmes de sécurité, il faut executer :
 
