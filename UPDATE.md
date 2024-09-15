@@ -35,6 +35,19 @@ npm i bootstrap@XXX @popperjs/core@XXX
 ng update @compodoc/compodoc
 ```
 
+- Monté de version de es lint
+  La documentation de la mise à jour est [ici](https://github.com/angular-eslint/angular-eslint)
+
+```shell
+ng update @angular-eslint/schematics
+```
+
+Si cela ne fonctionne pas, il faut faire :
+
+```shell
+ng update @angular-eslint/schematics --force
+```
+
 - Analyse des problèmes de sécurité
   Pour analyser les problèmes de sécurité, il faut executer :
 
