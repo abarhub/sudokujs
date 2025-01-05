@@ -7,9 +7,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-selection-chiffres',
-  templateUrl: './selection-chiffres.component.html',
-  styleUrls: ['./selection-chiffres.component.scss'],
+    selector: 'app-selection-chiffres',
+    templateUrl: './selection-chiffres.component.html',
+    styleUrls: ['./selection-chiffres.component.scss'],
+    standalone: false
 })
 export class SelectionChiffresComponent implements OnInit, OnDestroy {
   chiffreSelectionnee: number | null = null;

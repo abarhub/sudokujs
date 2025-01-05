@@ -7,9 +7,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-grille',
-  templateUrl: './grille.component.html',
-  styleUrls: ['./grille.component.scss'],
+    selector: 'app-grille',
+    templateUrl: './grille.component.html',
+    styleUrls: ['./grille.component.scss'],
+    standalone: false
 })
 export class GrilleComponent implements OnInit, OnDestroy {
   grille: Grille;
