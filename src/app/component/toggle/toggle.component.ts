@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'toggle-button',
-  templateUrl: './toggle.component.html',
-  styleUrls: ['./toggle.component.scss'],
+    selector: 'toggle-button',
+    templateUrl: './toggle.component.html',
+    styleUrls: ['./toggle.component.scss'],
+    standalone: false
 })
 export class ToggleComponent implements OnInit {
   _valeur: boolean = false;
