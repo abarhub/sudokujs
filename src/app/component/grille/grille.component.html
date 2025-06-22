@@ -1,8 +1,9 @@
 <div>
   <table class="table-bordered grille">
-    <tr *ngFor="let item of [].constructor(9); let ligne = index">
-      <td
-        *ngFor="let item2 of [].constructor(9); let colonne = index"
+    @for (item of [].constructor(9); track item; let ligne = $index) {
+      <tr>
+        @for (item2 of [].constructor(9); track item2; let colonne = $index) {
+          <td
         [ngClass]="{
           'non-modifiable': !estModifiable(ligne, colonne),
           modifiable: estModifiable(ligne, colonne),
@@ -20,9 +21,11 @@
           'valeur-a-afficher': isValeurAfficher(ligne, colonne),
           'en-erreur': isEnErreur(ligne, colonne)
         }"
-        (click)="definiChiffre(ligne, colonne)">
-        {{ case(ligne, colonne) }}
-      </td>
-    </tr>
+            (click)="definiChiffre(ligne, colonne)">
+            {{ case(ligne, colonne) }}
+          </td>
+        }
+      </tr>
+    }
   </table>
 </div>
