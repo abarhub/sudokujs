@@ -15,17 +15,19 @@
     <p>Nombre de cases en erreur: {{ nombreErreurs }}</p>
     <p>
       <toggle-button
-        (valeurSelectionnee)="afficheErreur($event)"></toggle-button>
+      (valeurSelectionnee)="afficheErreur($event)"></toggle-button>
       Afficher Erreurs
     </p>
     <p>
       <toggle-button
         (valeurSelectionnee)="remplissageAutoChiffres($event)"
-        [valeur]="parametres.remplissageChiffres"></toggle-button>
+      [valeur]="parametres.remplissageChiffres"></toggle-button>
       Remplissage automatique des chiffres
     </p>
   </div>
-  <div class="p-2" *ngIf="nombreCasesVides === 0">Terminé</div>
+  @if (nombreCasesVides === 0) {
+    <div class="p-2">Terminé</div>
+  }
   <div>
     <button (click)="sauver()" class="btn btn-primary m-2">Sauver</button>
     <button (click)="charger()" class="btn btn-primary m-2">Charger</button>
