@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/component/selection-chiffres/selection-chiffres.component.scss"],
+  "sourcesContent": ["$taille-fonte: 2.5em;\r\n$taille-fonte-restant: 0.8em;\r\n\r\n$taille-fonte-min: 2em;\r\n$taille-fonte-restant-min: 0.6em;\r\n\r\n$taille-fonte-min2: 1.5em;\r\n$taille-fonte-restant-min2: 0.6em;\r\n\r\n.bouton-chiffre {\r\n  background-color: aqua;\r\n  padding: 10px;\r\n  margin: 5px;\r\n}\r\n\r\n.valeur {\r\n  font-size: $taille-fonte;\r\n}\r\n\r\n.bord {\r\n  /*background-color: aqua;*/\r\n}\r\n\r\n.selectionne {\r\n  background-color: aquamarine;\r\n}\r\n\r\n.nb-restant {\r\n  font-size: $taille-fonte-restant;\r\n}\r\n\r\n.desactive {\r\n  background-color: #558585;\r\n}\r\n\r\n@media (max-height: 768px) {\r\n  .valeur {\r\n    font-size: $taille-fonte-min;\r\n  }\r\n\r\n  .nb-restant {\r\n    font-size: $taille-fonte-restant-min;\r\n  }\r\n}\r\n\r\n@media (max-height: 600px) {\r\n  .valeur {\r\n    font-size: $taille-fonte-min2;\r\n  }\r\n\r\n  .nb-restant {\r\n    font-size: $taille-fonte-restant-min2;\r\n  }\r\n}\r\n"],
+  "mappings": ";AASA,CAAA;AACE,oBAAA;AACA,WAAA;AACA,UAAA;;AAGF,CAAA;AACE,aAhBa;;AAmBf,CAAA;;AAIA,CAAA;AACE,oBAAA;;AAGF,CAAA;AACE,aA3BqB;;AA8BvB,CAAA;AACE,oBAAA;;AAGF,OAAA,CAAA,UAAA,EAAA;AACE,GArBF;AAsBI,eAlCe;;AAqCjB,GAbF;AAcI,eArCuB;;;AAyC3B,OAAA,CAAA,UAAA,EAAA;AACE,GA/BF;AAgCI,eAzCgB;;AA4ClB,GAvBF;AAwBI,eA5CwB;;;",
+  "names": []
+}

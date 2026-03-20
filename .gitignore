@@ -46,3 +46,7 @@ testem.log
 .DS_Store
 Thumbs.db
 debug.log
+
+justfile
+.scannerwork/
+sonar-project.properties

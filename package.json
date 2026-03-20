@@ -12,7 +12,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "compodoc": "npx compodoc -p tsconfig.app.json",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
@@ -63,6 +64,7 @@
     "prettier": "3.3.3",
     "prettier-eslint": "^16.3.0",
     "protractor": "~7.0.0",
+    "sonarqube-scanner": "^4.3.5",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~5.8.3"
