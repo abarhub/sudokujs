@@ -93,18 +93,6 @@
             "codeCoverage": true
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sudokujs:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "sudokujs:serve:production"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
