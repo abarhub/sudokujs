@@ -1,3 +1,6 @@
+# version 1.5.0 (28/06/2026)
+- mise à jour vers angular 22.0.0
+
 # version 1.4.0 (22/06/2025)
 
 - mise à jour vers angular 20.0.4
