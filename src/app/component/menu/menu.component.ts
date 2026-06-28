@@ -1,4 +1,10 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { JeuxService } from '../../service/jeux.service';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { NiveauDifficulteEnum } from '../../models/niveau-difficulte.enum';
@@ -9,10 +15,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss'],
-    standalone: false
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   derniereValeurSelectionnee = 0;

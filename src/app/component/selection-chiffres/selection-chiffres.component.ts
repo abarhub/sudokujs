@@ -1,4 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { SelectionChiffre } from '../../models/selection-chiffre';
 import { JeuxService } from '../../service/jeux.service';
 import { Grille } from '../../models/grille';
@@ -7,10 +13,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-selection-chiffres',
-    templateUrl: './selection-chiffres.component.html',
-    styleUrls: ['./selection-chiffres.component.scss'],
-    standalone: false
+  selector: 'app-selection-chiffres',
+  templateUrl: './selection-chiffres.component.html',
+  styleUrls: ['./selection-chiffres.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class SelectionChiffresComponent implements OnInit, OnDestroy {
   chiffreSelectionnee: number | null = null;

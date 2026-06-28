@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
-    selector: 'toggle-button',
-    templateUrl: './toggle.component.html',
-    styleUrls: ['./toggle.component.scss'],
-    standalone: false
+  selector: 'toggle-button',
+  templateUrl: './toggle.component.html',
+  styleUrls: ['./toggle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class ToggleComponent implements OnInit {
   _valeur: boolean = false;

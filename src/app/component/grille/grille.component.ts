@@ -1,4 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Grille } from '../../models/grille';
 import { GrilleUtils } from '../../utils/grille.utils';
 import { JeuxService } from '../../service/jeux.service';
@@ -7,10 +13,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-grille',
-    templateUrl: './grille.component.html',
-    styleUrls: ['./grille.component.scss'],
-    standalone: false
+  selector: 'app-grille',
+  templateUrl: './grille.component.html',
+  styleUrls: ['./grille.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class GrilleComponent implements OnInit, OnDestroy {
   grille: Grille;
