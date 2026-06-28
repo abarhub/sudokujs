@@ -9,40 +9,50 @@ import { NiveauDifficulteEnum } from '../models/niveau-difficulte.enum';
 export class LocalStorageService {
   readonly keyGrille: string = 'valeur';
   readonly keyParametres: string = 'parametres';
-  localStorage: Storage;
+  localStorage: Storage | null = null;
 
   sauveGrille(grille: Grille): void {
-    localStorage.setItem(this.keyGrille, grille.toString());
+    if (this.localStorage) {
+      this.localStorage.setItem(this.keyGrille, grille.toString());
+    }
   }
 
   sauveParametres(parametres: Parametres): void {
-    if (parametres) {
+    if (parametres && this.localStorage) {
       const param = JSON.stringify(parametres);
       console.log('sauve param', param);
-      localStorage.setItem(this.keyParametres, param);
+      this.localStorage.setItem(this.keyParametres, param);
     }
   }
 
   chargerGrille(): Grille | null {
-    const valeur = localStorage.getItem(this.keyGrille);
-    if (valeur) {
-      const item = JSON.parse(valeur);
-      if (item) {
-        const solution: number[][] = this.convertieTabNumber(item, 'solution');
-        const valeurs: number[][] = this.convertieTabNumber(item, 'valeurs');
-        const visible: boolean[][] = this.convertieTabBoolean(item, 'visible');
-        const modifiable: boolean[][] = this.convertieTabBoolean(
-          item,
-          'modifiable'
-        );
+    if (this.localStorage) {
+      const valeur = this.localStorage.getItem(this.keyGrille);
+      if (valeur) {
+        const item = JSON.parse(valeur);
+        if (item) {
+          const solution: number[][] = this.convertieTabNumber(
+            item,
+            'solution'
+          );
+          const valeurs: number[][] = this.convertieTabNumber(item, 'valeurs');
+          const visible: boolean[][] = this.convertieTabBoolean(
+            item,
+            'visible'
+          );
+          const modifiable: boolean[][] = this.convertieTabBoolean(
+            item,
+            'modifiable'
+          );
 
-        if (
-          solution.length > 0 &&
-          valeurs.length > 0 &&
-          visible.length > 0 &&
-          modifiable.length > 0
-        ) {
-          return new Grille(solution, visible, modifiable, valeurs);
+          if (
+            solution.length > 0 &&
+            valeurs.length > 0 &&
+            visible.length > 0 &&
+            modifiable.length > 0
+          ) {
+            return new Grille(solution, visible, modifiable, valeurs);
+          }
         }
       }
     }

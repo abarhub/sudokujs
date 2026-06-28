@@ -95,8 +95,10 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   private miseAJourCompteurs(): void {
-    this.nombreErreurs = this.grille.nombreCasesEnErreur();
-    this.nombreCasesVides = this.grille.nombreCasesVides();
+    if (this.grille) {
+      this.nombreErreurs = this.grille.nombreCasesEnErreur();
+      this.nombreCasesVides = this.grille.nombreCasesVides();
+    }
   }
 
   creationGrille(): void {
@@ -138,6 +140,8 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   private sauveGrille(): void {
-    this.localStorageService.sauveGrille(this.grille);
+    if (this.grille) {
+      this.localStorageService.sauveGrille(this.grille);
+    }
   }
 }

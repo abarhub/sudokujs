@@ -9,7 +9,7 @@ describe('ArrayUtils', () => {
       [7, 8, 9],
     ];
     const res = ArrayUtils.cloneArrayNumber(tab);
-    expect(res === tab).toBeFalse();
+    expect(res === tab).toBeFalsy();
     expect(res).toEqual(tab);
   });
 
@@ -20,7 +20,7 @@ describe('ArrayUtils', () => {
       [70, 80, 90, 100],
     ];
     const res = ArrayUtils.cloneArrayNumber(tab);
-    expect(res === tab).toBeFalse();
+    expect(res === tab).toBeFalsy();
     expect(res).toEqual(tab);
   });
 
@@ -31,7 +31,7 @@ describe('ArrayUtils', () => {
       [false, false, true],
     ];
     const res = ArrayUtils.cloneArrayBoolean(tab);
-    expect(res === tab).toBeFalse();
+    expect(res === tab).toBeFalsy();
     expect(res).toEqual(tab);
   });
 
@@ -42,7 +42,7 @@ describe('ArrayUtils', () => {
       [false, false],
     ];
     const res = ArrayUtils.cloneArrayBoolean(tab);
-    expect(res === tab).toBeFalse();
+    expect(res === tab).toBeFalsy();
     expect(res).toEqual(tab);
   });
 

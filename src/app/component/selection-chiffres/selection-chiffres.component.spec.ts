@@ -57,7 +57,7 @@ describe('SelectionChiffresComponent', () => {
     // ASSERT
     expect(component).toBeTruthy();
     expect(component.chiffreSelectionnee).toEqual(5);
-    expect(component.estSelectionne(5)).toBeTrue();
+    expect(component.estSelectionne(5)).toBeTruthy();
     expect(component.nbRestant.find(value => value > 0))
       .withContext('there is one greater than 0')
       .toBeTruthy();

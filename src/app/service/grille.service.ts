@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GrilleService {
-  valeurs: number[][];
-  visible: boolean[][];
+  valeurs: number[][] = [];
+  visible: boolean[][] = [];
 
   constructor() {}
 

@@ -14,16 +14,16 @@ describe('GrilleUtils', () => {
 
   it('carre different', () => {
     const res = GrilleUtils.memeCarre(0, 0, 0, 3);
-    expect(res).toBeFalse();
+    expect(res).toBeFalsy();
 
     const res2 = GrilleUtils.memeCarre(0, 0, 1, 3);
-    expect(res2).toBeFalse();
+    expect(res2).toBeFalsy();
 
     const res3 = GrilleUtils.memeCarre(0, 0, 0, 6);
-    expect(res3).toBeFalse();
+    expect(res3).toBeFalsy();
 
     const res4 = GrilleUtils.memeCarre(0, 0, 3, 0);
-    expect(res4).toBeFalse();
+    expect(res4).toBeFalsy();
   });
 
   it('meme carre complet', () => {

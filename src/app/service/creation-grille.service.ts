@@ -16,7 +16,7 @@ export class CreationGrilleService {
     private randomService: RandomService
   ) {}
 
-  nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
+  nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille | null {
     // création de la grille vide
     const tab: number[][] = [];
     for (let ligne = 0; ligne < 9; ligne++) {
@@ -31,7 +31,7 @@ export class CreationGrilleService {
 
     let trouve = false;
     let nbTentative = 1;
-    let caseSupprimee: number[][];
+    let caseSupprimee: number[][] = [];
     while (!trouve && nbTentative < 10) {
       // suppression des cases
       let nombreCase: number;
@@ -94,15 +94,15 @@ export class CreationGrilleService {
       const colonne2 = val[1];
       const valeurActuelle = tab[ligne2][colonne2];
       let retourArriere = false;
-      let valeurs: number[];
+      let valeurs: number[] | null = null;
       if (valeursPossibles.has(position)) {
-        valeurs = valeursPossibles.get(position);
+        valeurs = valeursPossibles.get(position)!;
       } else {
         valeurs = this.calculValeursPossibles(tab, ligne2, colonne2);
         valeurs = ArrayUtils.shuttle(valeurs, this.randomService);
         valeursPossibles.set(position, valeurs);
       }
-      if (valeurs.length === 0) {
+      if (!valeurs || valeurs.length === 0) {
         if (position >= listePositions.length) {
           // pas de solution
           console.log('pas de solution');
@@ -111,7 +111,7 @@ export class CreationGrilleService {
           // pas de solution trouvée => on retourne en arrière
           retourArriere = true;
         }
-      } else if (valeurs.length === 1) {
+      } else if (valeurs && valeurs.length === 1) {
         if (valeurActuelle !== 0 && valeurActuelle === valeurs[0]) {
           retourArriere = true;
         } else {
@@ -120,15 +120,19 @@ export class CreationGrilleService {
         }
       } else {
         let valeurPosition: number;
-        if (valeursPossiblesSelectionnee.has(position)) {
-          valeurPosition = valeursPossiblesSelectionnee.get(position) + 1;
+        if (
+          valeursPossiblesSelectionnee &&
+          valeursPossiblesSelectionnee.has(position) &&
+          valeursPossiblesSelectionnee.get(position)
+        ) {
+          valeurPosition = valeursPossiblesSelectionnee.get(position)! + 1;
         } else {
           valeurPosition = 0;
         }
         if (valeurPosition < valeurs.length) {
           valeursPossiblesSelectionnee.set(position, valeurPosition);
           tab[ligne2][colonne2] =
-            valeursPossibles.get(position)[valeurPosition];
+            valeursPossibles.get(position)![valeurPosition];
         } else {
           // on a parcouru toutes les valeurs
           retourArriere = true;
