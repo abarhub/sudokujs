@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/app.component.scss"],
-  "sourcesContent": ["$taille-case: 5em;\r\n\r\ntd {\r\n  width: $taille-case;\r\n  height: $taille-case;\r\n}\r\n"],
-  "mappings": ";AAEA;AACE,SAHY;AAIZ,UAJY;;",
-  "names": []
-}
