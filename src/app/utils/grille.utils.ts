@@ -1,5 +1,3 @@
-import { Grille } from '../models/grille';
-
 export class GrilleUtils {
   static memeCarre(
     ligne: number,

@@ -1,8 +1,7 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { JeuxService } from './jeux.service';
 import { NiveauDifficulteEnum } from '../models/niveau-difficulte.enum';
-import { EvenementGrille } from '../models/evenement-grille';
 import { TypeEvenementEnum } from '../models/type-evenement.enum';
 import { Grille } from '../models/grille';
 import { SelectionChiffre } from '../models/selection-chiffre';

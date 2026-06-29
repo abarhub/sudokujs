@@ -46,7 +46,7 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
       this.parametres = param;
     }
 
-    let grille: Grille | null = null;
+    let grille: Grille | null;
     console.log('chargement grille sauve ...');
     const grilleSauve = this.localStorageService.chargerGrille();
     if (grilleSauve) {

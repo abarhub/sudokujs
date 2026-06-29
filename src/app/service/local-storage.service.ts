@@ -59,8 +59,11 @@ export class LocalStorageService {
     return null;
   }
 
-  private convertieTabNumber(item: any, champs: string): number[][] {
-    if (item.hasOwnProperty(champs)) {
+  private convertieTabNumber(
+    item: Record<string, unknown>,
+    champs: string
+  ): number[][] {
+    if (Object.hasOwn(item, champs)) {
       const tab = item[champs];
       if (tab && Array.isArray(tab)) {
         const tab2: number[][] = [];
@@ -87,8 +90,11 @@ export class LocalStorageService {
     return [];
   }
 
-  private convertieTabBoolean(item: any, champs: string): boolean[][] {
-    if (item.hasOwnProperty(champs)) {
+  private convertieTabBoolean(
+    item: Record<string, unknown>,
+    champs: string
+  ): boolean[][] {
+    if (Object.hasOwn(item, champs)) {
       const tab = item[champs];
       if (tab && Array.isArray(tab)) {
         if (tab.length !== 9) {

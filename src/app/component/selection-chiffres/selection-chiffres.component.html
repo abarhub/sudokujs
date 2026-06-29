@@ -3,11 +3,15 @@
     @for (chiffre of listeChiffre; track chiffre) {
       <div
         class="bouton-chiffre d-flex flex-column"
+        role="button"
+        tabindex="0"
         (click)="selectionChiffre(chiffre)"
-      [ngClass]="{
-        selectionne: estSelectionne(chiffre),
-        desactive: nombreRestant(chiffre) === 0
-      }">
+        (keydown.enter)="selectionChiffre(chiffre)"
+        (keydown.space)="selectionChiffre(chiffre)"
+        [ngClass]="{
+          selectionne: estSelectionne(chiffre),
+          desactive: nombreRestant(chiffre) === 0,
+        }">
         <div class="d-flex justify-content-end m-0">
           <span class="nb-restant">{{ nombreRestant(chiffre) }}</span>
         </div>
@@ -16,7 +20,11 @@
     }
     <div
       class="bouton-chiffre valeur"
+      role="button"
+      tabindex="0"
       (click)="selectionChiffre(-1)"
+      (keydown.enter)="selectionChiffre(-1)"
+      (keydown.space)="selectionChiffre(-1)"
       [ngClass]="{ selectionne: estSelectionne(-1) }">
       X
     </div>

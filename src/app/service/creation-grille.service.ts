@@ -92,7 +92,7 @@ export class CreationGrilleService {
       const colonne2 = val[1];
       const valeurActuelle = tab[ligne2][colonne2];
       let retourArriere = false;
-      let valeurs: number[] | null = null;
+      let valeurs: number[] | null;
       if (valeursPossibles.has(position)) {
         valeurs = valeursPossibles.get(position)!;
       } else {

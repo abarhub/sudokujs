@@ -14,14 +14,14 @@
     <p>Nombre de cases vide: {{ nombreCasesVides }}</p>
     <p>Nombre de cases en erreur: {{ nombreErreurs }}</p>
     <p>
-      <toggle-button
-      (valeurSelectionnee)="afficheErreur($event)"></toggle-button>
+      <app-toggle-button
+        (valeurSelectionnee)="afficheErreur($event)"></app-toggle-button>
       Afficher Erreurs
     </p>
     <p>
-      <toggle-button
+      <app-toggle-button
         (valeurSelectionnee)="remplissageAutoChiffres($event)"
-      [valeur]="parametres.remplissageChiffres"></toggle-button>
+        [valeur]="parametres.remplissageChiffres"></app-toggle-button>
       Remplissage automatique des chiffres
     </p>
   </div>

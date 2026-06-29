@@ -41,7 +41,7 @@ export class GrilleService {
   }
 
   private verifieCase(
-    tableau: Array<Array<any>>,
+    tableau: Array<Array<unknown>>,
     ligne: number,
     colonne: number
   ): void {
@@ -57,7 +57,7 @@ export class GrilleService {
     }
   }
 
-  private isUndefined(value: any): boolean {
+  private isUndefined(value: unknown): boolean {
     return value === undefined || value === null;
   }
 

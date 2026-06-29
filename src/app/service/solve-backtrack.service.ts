@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Grille } from '../models/grille';
 import { ArrayUtils } from '../utils/array.utils';
 
 @Injectable({
@@ -122,7 +121,7 @@ export class SolveBacktrackService {
     }
     const subsectionRowEnd: number = subsectionRowStart + this.SUBSECTION_SIZE;
 
-    let subsectionColumnStart: number = 0;
+    let subsectionColumnStart: number;
     if (column < this.SUBSECTION_SIZE) {
       subsectionColumnStart = 0;
     } else if (
