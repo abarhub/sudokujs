@@ -19,9 +19,9 @@ export class JeuxService {
     const grille = this.creationGrilleService.nouvelleGrille(niveauDifficulte);
     const evenementGrille: EvenementGrille = new EvenementGrille();
     evenementGrille.typeEvenement = TypeEvenementEnum.CREATION_GRILLE;
-    evenementGrille.grille = grille.clone();
+    evenementGrille.grille = grille!.clone();
     this.evenementGrille$.next(evenementGrille);
-    return grille;
+    return grille!;
   }
 
   public chargerGrille(grille: Grille): void {

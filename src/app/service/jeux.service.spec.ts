@@ -6,9 +6,10 @@ import { EvenementGrille } from '../models/evenement-grille';
 import { TypeEvenementEnum } from '../models/type-evenement.enum';
 import { Grille } from '../models/grille';
 import { SelectionChiffre } from '../models/selection-chiffre';
+import { firstValueFrom, timeout } from 'rxjs';
 
 describe('JeuxService', () => {
-  let service: JeuxService;
+  let service: JeuxService | null = null;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -19,32 +20,46 @@ describe('JeuxService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should genere new grid', waitForAsync(() => {
-    let evtGrille: EvenementGrille;
+  it('should genere new grid', async () => {
+    // let evtGrille: EvenementGrille | null = null;
 
-    service.evenementGrille$.subscribe({
-      next: evt => {
-        evtGrille = evt;
-      },
-    });
+    expect(service).toBeTruthy();
 
-    const grille = service.nouvelleGrille(NiveauDifficulteEnum.FACILE);
+    const evtPromise = firstValueFrom(
+      service!.evenementGrille$.pipe(timeout(1000))
+    );
+
+    // service!.evenementGrille$.subscribe({
+    //   next: evt => {
+    //     evtGrille = evt;
+    //   },
+    // });
+
+    const grille = service!.nouvelleGrille(NiveauDifficulteEnum.FACILE);
+
+    const evtGrille = await evtPromise;
 
     expect(grille).toBeTruthy();
     expect(evtGrille).toBeTruthy();
-    expect(evtGrille.typeEvenement).toEqual(TypeEvenementEnum.CREATION_GRILLE);
-    expect(evtGrille.grille).not.toBeNull();
-    expect(evtGrille.selectionChiffre).toBeFalsy();
-  }));
+    expect(evtGrille!.typeEvenement).toEqual(TypeEvenementEnum.CREATION_GRILLE);
+    expect(evtGrille!.grille).not.toBeNull();
+    expect(evtGrille!.selectionChiffre).toBeFalsy();
+  });
 
-  it('should update grid', waitForAsync(() => {
-    let evtGrille: EvenementGrille;
+  it('should update grid', async () => {
+    // let evtGrille: EvenementGrille | null = null;
 
-    service.evenementGrille$.subscribe({
-      next: evt => {
-        evtGrille = evt;
-      },
-    });
+    expect(service).toBeTruthy();
+
+    const evtPromise = firstValueFrom(
+      service!.evenementGrille$.pipe(timeout(1000))
+    );
+
+    // service!.evenementGrille$.subscribe({
+    //   next: evt => {
+    //     evtGrille = evt;
+    //   },
+    // });
     const tab = [
       [8, 3, 5, 4, 1, 6, 9, 2, 7],
       [7, 9, 2, 5, 3, 8, 4, 6, 1],
@@ -69,71 +84,97 @@ describe('JeuxService', () => {
     ];
     const grid = new Grille(tab, tab2, tab2, tab);
 
-    service.modificationGrille(grid);
+    service!.modificationGrille(grid);
+
+    const evtGrille = await evtPromise;
 
     expect(evtGrille).toBeTruthy();
-    expect(evtGrille.typeEvenement).toEqual(
+    expect(evtGrille!.typeEvenement).toEqual(
       TypeEvenementEnum.MODIFICATION_GRILLE
     );
-    expect(evtGrille.grille).not.toBeNull();
-    expect(evtGrille.selectionChiffre).toBeFalsy();
-  }));
+    expect(evtGrille!.grille).not.toBeNull();
+    expect(evtGrille!.selectionChiffre).toBeFalsy();
+  });
 
-  it('should update grid', waitForAsync(() => {
-    let evtGrille: EvenementGrille;
+  it('should update grid', async () => {
+    // let evtGrille: EvenementGrille | null = null;
 
-    service.evenementGrille$.subscribe({
-      next: evt => {
-        evtGrille = evt;
-      },
-    });
+    expect(service).toBeTruthy();
+
+    const evtPromise = firstValueFrom(
+      service!.evenementGrille$.pipe(timeout(1000))
+    );
+
+    // service!.evenementGrille$.subscribe({
+    //   next: evt => {
+    //     evtGrille = evt;
+    //   },
+    // });
     const selectionChiffre = new SelectionChiffre();
     selectionChiffre.ligne = 1;
     selectionChiffre.colonne = 2;
     selectionChiffre.valeur = 3;
 
-    service.selectionChiffre(selectionChiffre);
+    service!.selectionChiffre(selectionChiffre);
+
+    const evtGrille = await evtPromise;
 
     expect(evtGrille).toBeTruthy();
-    expect(evtGrille.typeEvenement).toEqual(TypeEvenementEnum.CHOIX_CHIFFRE);
-    expect(evtGrille.grille).toBeFalsy();
-    expect(evtGrille.selectionChiffre).not.toBeNull();
-    expect(evtGrille.selectionChiffre.ligne).toEqual(1);
-    expect(evtGrille.selectionChiffre.colonne).toEqual(2);
-    expect(evtGrille.selectionChiffre.valeur).toEqual(3);
-  }));
+    expect(evtGrille!.typeEvenement).toEqual(TypeEvenementEnum.CHOIX_CHIFFRE);
+    expect(evtGrille!.grille).toBeFalsy();
+    expect(evtGrille!.selectionChiffre).not.toBeNull();
+    expect(evtGrille!.selectionChiffre!.ligne).toEqual(1);
+    expect(evtGrille!.selectionChiffre!.colonne).toEqual(2);
+    expect(evtGrille!.selectionChiffre!.valeur).toEqual(3);
+  });
 
-  it('should show error', waitForAsync(() => {
-    let evtGrille: EvenementGrille;
+  it('should show error', async () => {
+    // let evtGrille: EvenementGrille | null = null;
 
-    service.evenementGrille$.subscribe({
-      next: evt => {
-        evtGrille = evt;
-      },
-    });
+    expect(service).toBeTruthy();
 
-    service.afficherErreur(true);
+    const evtPromise = firstValueFrom(
+      service!.evenementGrille$.pipe(timeout(1000))
+    );
 
-    expect(evtGrille).toBeTruthy();
-    expect(evtGrille.typeEvenement).toEqual(TypeEvenementEnum.AFFICHER_ERREUR);
-    expect(evtGrille.grille).toBeFalsy();
-    expect(evtGrille.selectionChiffre).toBeFalsy();
-  }));
+    // service!.evenementGrille$.subscribe({
+    //   next: evt => {
+    //     evtGrille = evt;
+    //   },
+    // });
 
-  it('should hide error', waitForAsync(() => {
-    let evtGrille: EvenementGrille;
+    service!.afficherErreur(true);
 
-    service.evenementGrille$.subscribe({
-      next: evt => {
-        evtGrille = evt;
-      },
-    });
-
-    service.afficherErreur(false);
+    const evtGrille = await evtPromise;
 
     expect(evtGrille).toBeTruthy();
-    expect(evtGrille.typeEvenement).toEqual(TypeEvenementEnum.CACHER_ERREUR);
-    expect(evtGrille.grille).toBeFalsy();
-    expect(evtGrille.selectionChiffre).toBeFalsy();
-  }));
+    expect(evtGrille!.typeEvenement).toEqual(TypeEvenementEnum.AFFICHER_ERREUR);
+    expect(evtGrille!.grille).toBeFalsy();
+    expect(evtGrille!.selectionChiffre).toBeFalsy();
+  });
+
+  it('should hide error', async () => {
+    // let evtGrille: EvenementGrille | null = null;
+
+    expect(service).toBeTruthy();
+
+    const evtPromise = firstValueFrom(
+      service!.evenementGrille$.pipe(timeout(1000))
+    );
+
+    // service!.evenementGrille$.subscribe({
+    //   next: evt => {
+    //     evtGrille = evt;
+    //   },
+    // });
+
+    service!.afficherErreur(false);
+
+    const evtGrille = await evtPromise;
+
+    expect(evtGrille).toBeTruthy();
+    expect(evtGrille!.typeEvenement).toEqual(TypeEvenementEnum.CACHER_ERREUR);
+    expect(evtGrille!.grille).toBeFalsy();
+    expect(evtGrille!.selectionChiffre).toBeFalsy();
+  });
 });

@@ -29,7 +29,7 @@ describe('GrilleService', () => {
     // ACT
     service.initialisation(tab, tab2);
     // ASSERT
-    expect(service.estInitialise()).toBeTrue();
+    expect(service.estInitialise()).toBeTruthy();
   });
 
   it('should get the value', () => {
@@ -70,15 +70,15 @@ describe('GrilleService', () => {
       [false, true, true],
     ];
     service.initialisation(tab, tab2);
-    expect(service.isVisible(0, 0)).toBeTrue();
-    expect(service.isVisible(0, 1)).toBeTrue();
-    expect(service.isVisible(0, 2)).toBeFalse();
-    expect(service.isVisible(1, 0)).toBeTrue();
-    expect(service.isVisible(1, 1)).toBeFalse();
-    expect(service.isVisible(1, 2)).toBeFalse();
-    expect(service.isVisible(2, 0)).toBeFalse();
-    expect(service.isVisible(2, 1)).toBeTrue();
-    expect(service.isVisible(2, 2)).toBeTrue();
+    expect(service.isVisible(0, 0)).toBeTruthy();
+    expect(service.isVisible(0, 1)).toBeTruthy();
+    expect(service.isVisible(0, 2)).toBeFalsy();
+    expect(service.isVisible(1, 0)).toBeTruthy();
+    expect(service.isVisible(1, 1)).toBeFalsy();
+    expect(service.isVisible(1, 2)).toBeFalsy();
+    expect(service.isVisible(2, 0)).toBeFalsy();
+    expect(service.isVisible(2, 1)).toBeTruthy();
+    expect(service.isVisible(2, 2)).toBeTruthy();
   });
 
   it('should being complete with reals values', () => {
@@ -110,7 +110,7 @@ describe('GrilleService', () => {
     service.initialisation(tab, tab2);
 
     // ASSERT
-    expect(service.estInitialise()).toBeTrue();
+    expect(service.estInitialise()).toBeTruthy();
 
     for (let ligne = 0; ligne < 9; ligne++) {
       for (let colonne = 0; colonne < 9; colonne++) {

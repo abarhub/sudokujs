@@ -3,7 +3,7 @@ import { Grille } from './grille';
 import { SelectionChiffre } from './selection-chiffre';
 
 export class EvenementGrille {
-  typeEvenement: TypeEvenementEnum;
-  grille: Grille | null;
-  selectionChiffre: SelectionChiffre | null;
+  typeEvenement: TypeEvenementEnum = TypeEvenementEnum.CREATION_GRILLE;
+  grille: Grille | null = null;
+  selectionChiffre: SelectionChiffre | null = null;
 }

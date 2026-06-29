@@ -20,7 +20,7 @@ import { takeUntil } from 'rxjs/operators';
   standalone: false,
 })
 export class GrilleComponent implements OnInit, OnDestroy {
-  grille: Grille;
+  grille: Grille | null = null;
   valeurSelectionnee: number | null = null;
   ligneSelectionnee: number | null = null;
   colonneSelectionnee: number | null = null;
@@ -29,7 +29,7 @@ export class GrilleComponent implements OnInit, OnDestroy {
   over$ = new Subject<void>();
 
   @Input()
-  remplissageAutoChiffre: boolean;
+  remplissageAutoChiffre: boolean = false;
 
   constructor(private jeuxService: JeuxService) {}
 
@@ -122,7 +122,8 @@ export class GrilleComponent implements OnInit, OnDestroy {
       this.valeurSelectionnee &&
       (this.remplissageAutoChiffre ||
         forceValeur ||
-        this.valeurSelectionnee === -1)
+        this.valeurSelectionnee === -1) &&
+      this.grille
     ) {
       if (this.estModifiable(ligne, colonne)) {
         if (this.valeurSelectionnee >= 1 && this.valeurSelectionnee <= 9) {
@@ -152,7 +153,7 @@ export class GrilleComponent implements OnInit, OnDestroy {
       ) {
         this.ligneSelectionnee = ligne;
         this.colonneSelectionnee = colonne;
-        if (this.grille.estVisible(ligne, colonne)) {
+        if (this.grille && this.grille.estVisible(ligne, colonne)) {
           this.valeurAfficher = this.grille.getValeur(ligne, colonne);
         }
       }
@@ -161,8 +162,8 @@ export class GrilleComponent implements OnInit, OnDestroy {
 
   isCaseSelectionnee(ligne: number, colonne: number): boolean {
     return (
-      this.ligneSelectionnee &&
-      this.colonneSelectionnee &&
+      !!this.ligneSelectionnee &&
+      !!this.colonneSelectionnee &&
       this.ligneSelectionnee === ligne &&
       this.colonneSelectionnee === colonne
     );
@@ -190,7 +191,11 @@ export class GrilleComponent implements OnInit, OnDestroy {
   }
 
   isValeurAfficher(ligne: number, colonne: number): boolean {
-    if (this.valeurAfficher != null && this.grille.estVisible(ligne, colonne)) {
+    if (
+      this.grille &&
+      this.valeurAfficher != null &&
+      this.grille.estVisible(ligne, colonne)
+    ) {
       return this.grille.getValeur(ligne, colonne) === this.valeurAfficher;
     } else {
       return false;
@@ -198,7 +203,7 @@ export class GrilleComponent implements OnInit, OnDestroy {
   }
 
   isEnErreur(ligne: number, colonne: number): boolean {
-    if (this.afficherErreur) {
+    if (this.afficherErreur && this.grille) {
       return (
         this.grille.getValeur(ligne, colonne) !==
         this.grille.getSolution(ligne, colonne)

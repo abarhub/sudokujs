@@ -26,7 +26,7 @@ export class SelectionChiffresComponent implements OnInit, OnDestroy {
   over$ = new Subject<void>();
 
   @Input()
-  remplissageAutoChiffre: boolean;
+  remplissageAutoChiffre: boolean = false;
 
   constructor(private jeuxService: JeuxService) {
     this.nbRestant = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -71,7 +71,7 @@ export class SelectionChiffresComponent implements OnInit, OnDestroy {
   }
 
   estSelectionne(chiffre: number): boolean {
-    return this.chiffreSelectionnee && this.chiffreSelectionnee === chiffre;
+    return !!this.chiffreSelectionnee && this.chiffreSelectionnee === chiffre;
   }
 
   private calculNombreRestant(grille: Grille): void {

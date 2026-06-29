@@ -91,7 +91,7 @@ describe('SolveBacktrack', () => {
   it('existe une solution', () => {
     const tab: number[][] = sudokuSimple1;
     const res = solveBacktrackService.existeSolution(tab);
-    expect(res).toBeTrue();
+    expect(res).toBeTruthy();
   });
 
   it('résolution sudoku0 simple 1', () => {

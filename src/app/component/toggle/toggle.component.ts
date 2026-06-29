@@ -14,7 +14,7 @@ import {
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
-export class ToggleComponent implements OnInit {
+export class ToggleComponent {
   _valeur: boolean = false;
 
   @Input()
@@ -30,10 +30,6 @@ export class ToggleComponent implements OnInit {
 
   @Output()
   valeurSelectionnee: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   envoieValeur(): void {
     this.valeurSelectionnee.emit(this.valeur);
