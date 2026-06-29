@@ -60,12 +60,14 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
       console.log("aucune grillle. Création d'une nouvelle grille");
       const niveauDifficulte = this.parametres.niveauDifficulte;
       grille = this.jeuxService.nouvelleGrille(niveauDifficulte);
-      grille
-        .miseAjour()
-        .pipe(takeUntil(this.isOver$))
-        .subscribe(() => {
-          this.miseAJourCompteurs();
-        });
+      if (grille) {
+        grille
+          .miseAjour()
+          .pipe(takeUntil(this.isOver$))
+          .subscribe(() => {
+            this.miseAJourCompteurs();
+          });
+      }
     }
 
     this.nombreCasesVides = grille.nombreCasesVides();
@@ -105,8 +107,10 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
     const grille = this.jeuxService.nouvelleGrille(
       this.parametres.niveauDifficulte
     );
-    this.nombreCasesVides = grille.nombreCasesVides();
-    this.sauveGrille();
+    if (grille) {
+      this.nombreCasesVides = grille.nombreCasesVides();
+      this.sauveGrille();
+    }
   }
 
   afficheErreur(afficherErreur: boolean): void {
