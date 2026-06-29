@@ -61,6 +61,12 @@ Si cela ne fonctionne pas, il faut faire :
 npm install --save-dev --save-exact prettier --force
 ```
 
+- Vérification de la syntaxe du code
+Pour vérifier que la syntaxe est bonne, il faut executer :
+```shell
+ng lint
+``` 
+
 - Analyse des problèmes de sécurité
   Pour analyser les problèmes de sécurité, il faut executer :
 
