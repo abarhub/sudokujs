@@ -4,13 +4,17 @@ import {
   OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  inject,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { JeuxService } from '../../service/jeux.service';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { NiveauDifficulteEnum } from '../../models/niveau-difficulte.enum';
 import { TypeEvenementEnum } from '../../models/type-evenement.enum';
 import { Grille } from '../../models/grille';
 import { Parametres } from '../../models/parametres';
+import { ToggleComponent } from '../toggle/toggle.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -18,8 +22,8 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormsModule, ToggleComponent],
 })
 export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   derniereValeurSelectionnee = 0;
@@ -32,10 +36,9 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   NiveauDifficulteEnum = NiveauDifficulteEnum;
   isOver$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    private jeuxService: JeuxService,
-    private localStorageService: LocalStorageService
-  ) {}
+  private jeuxService = inject(JeuxService);
+  private localStorageService = inject(LocalStorageService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngAfterContentInit(): void {
     const param = this.localStorageService.chargerParametres();
@@ -71,6 +74,7 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
     }
 
     this.nombreCasesVides = grille.nombreCasesVides();
+    this.cdr.markForCheck();
   }
 
   ngOnInit(): void {
@@ -88,6 +92,7 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
             this.miseAJourCompteurs();
           }
         }
+        this.cdr.markForCheck();
       });
   }
 
@@ -101,6 +106,7 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
       this.nombreErreurs = this.grille.nombreCasesEnErreur();
       this.nombreCasesVides = this.grille.nombreCasesVides();
     }
+    this.cdr.markForCheck();
   }
 
   creationGrille(): void {

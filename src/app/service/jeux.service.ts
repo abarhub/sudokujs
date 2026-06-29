@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Grille } from '../models/grille';
 import { CreationGrilleService } from './creation-grille.service';
@@ -13,7 +13,7 @@ import { SelectionChiffre } from '../models/selection-chiffre';
 export class JeuxService {
   evenementGrille$: Subject<EvenementGrille> = new Subject<EvenementGrille>();
 
-  constructor(private creationGrilleService: CreationGrilleService) {}
+  private creationGrilleService = inject(CreationGrilleService);
 
   public nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
     const grille = this.creationGrilleService.nouvelleGrille(niveauDifficulte);

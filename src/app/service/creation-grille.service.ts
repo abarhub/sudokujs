@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Grille } from '../models/grille';
 import { ArrayUtils } from '../utils/array.utils';
 import { NiveauDifficulteEnum } from '../models/niveau-difficulte.enum';
@@ -11,10 +11,8 @@ import { RandomService } from './random.service';
 export class CreationGrilleService {
   SUBSECTION_SIZE = 3;
 
-  constructor(
-    private solveBacktrackService: SolveBacktrackService,
-    private randomService: RandomService
-  ) {}
+  private solveBacktrackService = inject(SolveBacktrackService);
+  private randomService = inject(RandomService);
 
   nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille | null {
     // création de la grille vide

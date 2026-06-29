@@ -9,8 +9,7 @@ describe('ToggleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [ToggleComponent],
+      imports: [FormsModule, ToggleComponent],
     }).compileComponents();
   }));
 

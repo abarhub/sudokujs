@@ -10,8 +10,7 @@ describe('MenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [MenuComponent, ToggleComponent],
+      imports: [FormsModule, MenuComponent, ToggleComponent],
     }).compileComponents();
   }));
 

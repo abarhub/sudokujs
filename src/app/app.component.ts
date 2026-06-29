@@ -1,11 +1,14 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { GrilleComponent } from './component/grille/grille.component';
+import { SelectionChiffresComponent } from './component/selection-chiffres/selection-chiffres.component';
+import { MenuComponent } from './component/menu/menu.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [GrilleComponent, SelectionChiffresComponent, MenuComponent],
 })
 export class AppComponent {
   title = 'sudokujs';
@@ -13,6 +16,4 @@ export class AppComponent {
   niveau = 'facile';
   nombreCasesVides = 0;
   remplissageChiffres: boolean = false;
-
-  constructor() {}
 }

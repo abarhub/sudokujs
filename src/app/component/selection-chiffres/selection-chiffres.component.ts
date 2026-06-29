@@ -4,7 +4,10 @@ import {
   OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  inject,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SelectionChiffre } from '../../models/selection-chiffre';
 import { JeuxService } from '../../service/jeux.service';
 import { Grille } from '../../models/grille';
@@ -16,8 +19,8 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-selection-chiffres',
   templateUrl: './selection-chiffres.component.html',
   styleUrls: ['./selection-chiffres.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule],
 })
 export class SelectionChiffresComponent implements OnInit, OnDestroy {
   chiffreSelectionnee: number | null = null;
@@ -28,7 +31,10 @@ export class SelectionChiffresComponent implements OnInit, OnDestroy {
   @Input()
   remplissageAutoChiffre: boolean = false;
 
-  constructor(private jeuxService: JeuxService) {
+  private jeuxService = inject(JeuxService);
+  private cdr = inject(ChangeDetectorRef);
+
+  constructor() {
     this.nbRestant = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
@@ -51,6 +57,7 @@ export class SelectionChiffresComponent implements OnInit, OnDestroy {
             }
           }
         }
+        this.cdr.markForCheck();
       });
   }
 

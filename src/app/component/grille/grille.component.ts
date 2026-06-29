@@ -4,7 +4,10 @@ import {
   OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  inject,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Grille } from '../../models/grille';
 import { GrilleUtils } from '../../utils/grille.utils';
 import { JeuxService } from '../../service/jeux.service';
@@ -16,8 +19,8 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-grille',
   templateUrl: './grille.component.html',
   styleUrls: ['./grille.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule],
 })
 export class GrilleComponent implements OnInit, OnDestroy {
   grille: Grille | null = null;
@@ -31,7 +34,8 @@ export class GrilleComponent implements OnInit, OnDestroy {
   @Input()
   remplissageAutoChiffre: boolean = false;
 
-  constructor(private jeuxService: JeuxService) {}
+  private jeuxService = inject(JeuxService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.jeuxService.evenementGrille$
@@ -63,6 +67,7 @@ export class GrilleComponent implements OnInit, OnDestroy {
           this.afficherErreur =
             event.typeEvenement === TypeEvenementEnum.AFFICHER_ERREUR;
         }
+        this.cdr.markForCheck();
       });
   }
 

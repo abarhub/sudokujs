@@ -9,8 +9,8 @@ import { ToggleComponent } from './component/toggle/toggle.component';
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [
+      imports: [
+        RouterTestingModule,
         AppComponent,
         GrilleComponent,
         SelectionChiffresComponent,

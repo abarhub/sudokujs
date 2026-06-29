@@ -11,14 +11,17 @@ import { ToggleComponent } from './component/toggle/toggle.component';
 import { MenuComponent } from './component/menu/menu.component';
 
 @NgModule({
-  declarations: [
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
     AppComponent,
     GrilleComponent,
     SelectionChiffresComponent,
     ToggleComponent,
     MenuComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

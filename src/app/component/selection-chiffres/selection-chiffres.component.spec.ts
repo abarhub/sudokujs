@@ -17,7 +17,7 @@ describe('SelectionChiffresComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SelectionChiffresComponent],
+      imports: [SelectionChiffresComponent],
     }).compileComponents();
   }));
 

@@ -8,7 +8,7 @@ describe('GrilleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [GrilleComponent],
+      imports: [GrilleComponent],
     }).compileComponents();
   }));
 

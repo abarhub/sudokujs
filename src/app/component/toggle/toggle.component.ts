@@ -6,13 +6,14 @@ import {
   Output,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'toggle-button',
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormsModule],
 })
 export class ToggleComponent {
   _valeur: boolean = false;
