@@ -123,7 +123,7 @@ export class CreationGrilleService {
         if (
           valeursPossiblesSelectionnee &&
           valeursPossiblesSelectionnee.has(position) &&
-          valeursPossiblesSelectionnee.get(position)
+          valeursPossiblesSelectionnee.get(position) !== undefined
         ) {
           valeurPosition = valeursPossiblesSelectionnee.get(position)! + 1;
         } else {
