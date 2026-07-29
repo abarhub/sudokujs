@@ -20,19 +20,11 @@ describe('JeuxService', () => {
   });
 
   it('should genere new grid', async () => {
-    // let evtGrille: EvenementGrille | null = null;
-
     expect(service).toBeTruthy();
 
     const evtPromise = firstValueFrom(
       service!.evenementGrille$.pipe(timeout(1000))
     );
-
-    // service!.evenementGrille$.subscribe({
-    //   next: evt => {
-    //     evtGrille = evt;
-    //   },
-    // });
 
     const grille = service!.nouvelleGrille(NiveauDifficulteEnum.FACILE);
 
@@ -46,19 +38,12 @@ describe('JeuxService', () => {
   });
 
   it('should update grid', async () => {
-    // let evtGrille: EvenementGrille | null = null;
-
     expect(service).toBeTruthy();
 
     const evtPromise = firstValueFrom(
       service!.evenementGrille$.pipe(timeout(1000))
     );
 
-    // service!.evenementGrille$.subscribe({
-    //   next: evt => {
-    //     evtGrille = evt;
-    //   },
-    // });
     const tab = [
       [8, 3, 5, 4, 1, 6, 9, 2, 7],
       [7, 9, 2, 5, 3, 8, 4, 6, 1],
@@ -96,19 +81,12 @@ describe('JeuxService', () => {
   });
 
   it('should update grid', async () => {
-    // let evtGrille: EvenementGrille | null = null;
-
     expect(service).toBeTruthy();
 
     const evtPromise = firstValueFrom(
       service!.evenementGrille$.pipe(timeout(1000))
     );
 
-    // service!.evenementGrille$.subscribe({
-    //   next: evt => {
-    //     evtGrille = evt;
-    //   },
-    // });
     const selectionChiffre = new SelectionChiffre();
     selectionChiffre.ligne = 1;
     selectionChiffre.colonne = 2;
@@ -128,19 +106,11 @@ describe('JeuxService', () => {
   });
 
   it('should show error', async () => {
-    // let evtGrille: EvenementGrille | null = null;
-
     expect(service).toBeTruthy();
 
     const evtPromise = firstValueFrom(
       service!.evenementGrille$.pipe(timeout(1000))
     );
-
-    // service!.evenementGrille$.subscribe({
-    //   next: evt => {
-    //     evtGrille = evt;
-    //   },
-    // });
 
     service!.afficherErreur(true);
 
@@ -153,19 +123,11 @@ describe('JeuxService', () => {
   });
 
   it('should hide error', async () => {
-    // let evtGrille: EvenementGrille | null = null;
-
     expect(service).toBeTruthy();
 
     const evtPromise = firstValueFrom(
       service!.evenementGrille$.pipe(timeout(1000))
     );
-
-    // service!.evenementGrille$.subscribe({
-    //   next: evt => {
-    //     evtGrille = evt;
-    //   },
-    // });
 
     service!.afficherErreur(false);
 

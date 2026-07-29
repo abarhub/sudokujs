@@ -31,8 +31,8 @@ export class SelectionChiffresComponent implements OnInit, OnDestroy {
   @Input()
   remplissageAutoChiffre: boolean = false;
 
-  private jeuxService = inject(JeuxService);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly jeuxService = inject(JeuxService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   constructor() {
     this.nbRestant = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

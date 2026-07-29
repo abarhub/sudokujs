@@ -13,7 +13,7 @@ import { SelectionChiffre } from '../models/selection-chiffre';
 export class JeuxService {
   evenementGrille$: Subject<EvenementGrille> = new Subject<EvenementGrille>();
 
-  private creationGrilleService = inject(CreationGrilleService);
+  private readonly creationGrilleService = inject(CreationGrilleService);
 
   public nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille {
     const grille = this.creationGrilleService.nouvelleGrille(niveauDifficulte);

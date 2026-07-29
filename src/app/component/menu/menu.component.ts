@@ -36,9 +36,9 @@ export class MenuComponent implements OnInit, OnDestroy, AfterContentInit {
   NiveauDifficulteEnum = NiveauDifficulteEnum;
   isOver$: Subject<boolean> = new Subject<boolean>();
 
-  private jeuxService = inject(JeuxService);
-  private localStorageService = inject(LocalStorageService);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly jeuxService = inject(JeuxService);
+  private readonly localStorageService = inject(LocalStorageService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   ngAfterContentInit(): void {
     const param = this.localStorageService.chargerParametres();

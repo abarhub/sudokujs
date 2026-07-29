@@ -34,8 +34,8 @@ export class GrilleComponent implements OnInit, OnDestroy {
   @Input()
   remplissageAutoChiffre: boolean = false;
 
-  private jeuxService = inject(JeuxService);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly jeuxService = inject(JeuxService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.jeuxService.evenementGrille$
@@ -158,7 +158,7 @@ export class GrilleComponent implements OnInit, OnDestroy {
       ) {
         this.ligneSelectionnee = ligne;
         this.colonneSelectionnee = colonne;
-        if (this.grille && this.grille.estVisible(ligne, colonne)) {
+        if (this.grille?.estVisible(ligne, colonne)) {
           this.valeurAfficher = this.grille.getValeur(ligne, colonne);
         }
       }

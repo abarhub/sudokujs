@@ -11,8 +11,8 @@ import { RandomService } from './random.service';
 export class CreationGrilleService {
   SUBSECTION_SIZE = 3;
 
-  private solveBacktrackService = inject(SolveBacktrackService);
-  private randomService = inject(RandomService);
+  private readonly solveBacktrackService = inject(SolveBacktrackService);
+  private readonly randomService = inject(RandomService);
 
   nouvelleGrille(niveauDifficulte: NiveauDifficulteEnum): Grille | null {
     // création de la grille vide
@@ -109,7 +109,7 @@ export class CreationGrilleService {
           // pas de solution trouvée => on retourne en arrière
           retourArriere = true;
         }
-      } else if (valeurs && valeurs.length === 1) {
+      } else if (valeurs?.length === 1) {
         if (valeurActuelle !== 0 && valeurActuelle === valeurs[0]) {
           retourArriere = true;
         } else {
