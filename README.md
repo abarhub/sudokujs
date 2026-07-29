@@ -2,7 +2,7 @@
 
 [![Tests CI](https://github.com/abarhub/sudokujs/actions/workflows/npm_action.yml/badge.svg?branch=master)](https://github.com/abarhub/sudokujs/actions/workflows/npm_action.yml)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.0.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 22.0.8.
 
 [Demo](https://abarhub.github.io/sudokujs/sudokujs/)
 
