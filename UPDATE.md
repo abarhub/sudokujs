@@ -67,6 +67,11 @@ Pour vérifier que la syntaxe est bonne, il faut executer :
 ng lint
 ``` 
 
+- Pour mettre à jour le client sonar
+```shell
+npm install --global @sonar/scan
+```
+
 - Analyse des problèmes de sécurité
   Pour analyser les problèmes de sécurité, il faut executer :
 
